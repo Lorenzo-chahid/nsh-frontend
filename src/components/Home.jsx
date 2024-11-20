@@ -9,12 +9,8 @@ import {
   Button,
   Paper,
   Grid,
-  Snackbar,
-  Alert,
-  AppBar,
-  Toolbar,
 } from '@mui/material';
-import { Search as SearchIcon, Close as CloseIcon } from '@mui/icons-material';
+import { Search as SearchIcon } from '@mui/icons-material';
 import { getCategoriesFromInput } from '../categoryService';
 import Carousel from 'react-material-ui-carousel';
 import { motion } from 'framer-motion';
@@ -31,8 +27,6 @@ const images = [
 const Home = () => {
   const [inputValue, setInputValue] = useState('');
   const [categories, setCategories] = useState([]);
-  const [notificationOpen, setNotificationOpen] = useState(true);
-  const [bannerVisible, setBannerVisible] = useState(true);
 
   const handleInputChange = e => {
     const value = e.target.value;
@@ -43,63 +37,8 @@ const Home = () => {
     setCategories(matchedCategories);
   };
 
-  const handleNotificationClose = () => {
-    setNotificationOpen(false);
-  };
-
-  const handleBannerClose = () => {
-    setBannerVisible(false);
-  };
-
   return (
     <div>
-      {/* Banderole d'information */}
-      {bannerVisible && (
-        <AppBar position="static" sx={{ bgcolor: 'secondary.main' }}>
-          <Toolbar
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              padding: '0 16px',
-            }}
-          >
-            <Typography variant="body1" sx={{ color: 'white' }}>
-              🚧 Le site est en pré-alpha : toutes les données peuvent être
-              effacées. Les inscriptions sont ouvertes, mais des mises à jour
-              majeures sont prévues.
-              <br />
-              🚧 This site is in pre-alpha: all data may be erased.
-              Registrations are open, but major updates are coming.
-            </Typography>
-            <IconButton onClick={handleBannerClose} sx={{ color: 'white' }}>
-              <CloseIcon />
-            </IconButton>
-          </Toolbar>
-        </AppBar>
-      )}
-
-      {/* Notification au chargement de la page */}
-      <Snackbar
-        open={notificationOpen}
-        autoHideDuration={10000}
-        onClose={handleNotificationClose}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-      >
-        <Alert
-          onClose={handleNotificationClose}
-          severity="info"
-          sx={{
-            width: '100%',
-            backgroundColor: 'secondary.main',
-            color: 'white',
-          }}
-        >
-          🚧 Le site est en pré-alpha : toutes les données peuvent être
-          effacées. 🚧 This site is in pre-alpha: all data may be erased.
-        </Alert>
-      </Snackbar>
-
       <Container maxWidth="lg">
         {/* Section 1: Header avec slogan et bouton d'inscription */}
         <Box
