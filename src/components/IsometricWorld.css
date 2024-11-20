@@ -1,0 +1,59 @@
+.isometric-grid {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  margin-top: 50px;
+}
+
+.grid-tile {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  transform: scaleY(0.5) rotate(45deg);
+  transform-origin: 0 0;
+  background-color: #e0e0e0;
+  border: 1px solid #c0c0c0;
+  cursor: pointer;
+}
+
+.grid-tile:hover {
+  background-color: #d0d0d0;
+}
+
+.character-sprite {
+  position: absolute;
+  top: -16px;
+  left: 16px; 
+  width: 48px;
+  transform: rotate(-45deg) scaleY(2);
+}
+
+.character-sprite.flipped {
+  transform: scaleX(-1) rotate(-45deg) scaleY(2); /* Effet miroir */
+}
+
+.context-menu {
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+.context-menu ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.context-menu li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.context-menu li:hover {
+  background-color: #f0f0f0;
+}
+

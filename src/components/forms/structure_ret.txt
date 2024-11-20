@@ -1,0 +1,20 @@
+.
+├── business
+│   ├── BudgetForm.jsx
+│   └── BusinessForm.jsx
+├── education
+│   ├── LanguageLearningForm.jsx
+│   └── SkillAcquisitionForm.jsx
+├── health
+│   ├── StressManagement.jsx
+│   └── WeightLossForm.jsx
+├── personal
+│   ├── EmotionalResilienceForm.jsx
+│   └── SocialSkillsForm.jsx
+├── productivity
+│   ├── ProjectManagementForm.jsx
+│   └── TaskManagementForm.jsx
+├── structure_ret.txt
+└── technology
+
+7 directories, 11 files

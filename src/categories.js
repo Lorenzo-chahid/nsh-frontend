@@ -1,0 +1,46 @@
+export const categories = {
+  'Santé et bien-être': [
+    'poids',
+    'santé',
+    'fitness',
+    'bien-être',
+    'endurance',
+    'méditer',
+  ],
+  'Carrière et développement professionnel': [
+    'YouTuber',
+    'compétence',
+    'leadership',
+    'carrière',
+    'business',
+  ],
+  'Éducation et apprentissage': [
+    'apprendre',
+    'formation',
+    'étudier',
+    'diplôme',
+    'économiser',
+  ],
+  'Finance et gestion': [
+    'économiser',
+    'investir',
+    'finances',
+    'budget',
+    'actions',
+  ],
+  'Création et entrepreneuriat': [
+    'entreprise',
+    'application',
+    'créer',
+    'startup',
+    'film',
+    'lancer',
+  ],
+  'Vie quotidienne et organisation personnelle': [
+    'organiser',
+    'routine',
+    'productivité',
+    'gestion',
+    'temps',
+  ],
+};
