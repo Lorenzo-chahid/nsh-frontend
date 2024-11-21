@@ -1,0 +1,10 @@
+type: web
+name: nanshe-frontend
+env: static
+buildCommand: npm run build
+startCommand: npm run start
+staticPublishPath: build
+redirects:
+  - source: /*
+    destination: /index.html
+    status: 200
