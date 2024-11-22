@@ -6,19 +6,22 @@ import {
   Typography,
   Container,
   MenuItem,
+  Tooltip,
 } from '@mui/material';
 import axios from 'axios';
-import { useAuth } from '../../../context/AuthContext'; // Assurez-vous du bon chemin
+import { useAuth } from '../../../context/AuthContext';
+import { useTranslation } from 'react-i18next';
 
 const LanguageLearningForm = () => {
   const { token } = useAuth();
+  const { t } = useTranslation(); // Hook pour les traductions
   const [language, setLanguage] = useState('');
   const [currentLevel, setCurrentLevel] = useState('');
   const [learningMethod, setLearningMethod] = useState('');
   const [duration, setDuration] = useState('');
   const [project, setProject] = useState(null);
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false); // Si vous voulez gérer le chargement
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -28,11 +31,9 @@ const LanguageLearningForm = () => {
       learning_method: learningMethod,
       duration: parseInt(duration),
     };
-    console.log("Données d'apprentissage de la langue:", languageLearningData);
 
     setLoading(true);
     try {
-      // Effectuer la requête POST en utilisant axios et en passant le token
       const response = await axios.post(
         '/api/v1/forms/language-learning/',
         languageLearningData,
@@ -41,12 +42,10 @@ const LanguageLearningForm = () => {
         }
       );
 
-      console.log('Projet créé:', response.data);
       setProject(response.data);
       setError(null);
     } catch (error) {
-      console.error('Erreur lors de la création du projet:', error);
-      setError('Une erreur est survenue lors de la création du projet.');
+      setError(t('languageLearning.error'));
     } finally {
       setLoading(false);
     }
@@ -55,11 +54,11 @@ const LanguageLearningForm = () => {
   return (
     <Container maxWidth="sm">
       <Typography variant="h5" gutterBottom>
-        Apprentissage d'une Nouvelle Langue
+        {t('languageLearning.title')}
       </Typography>
       <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2 }}>
         <TextField
-          label="Langue à apprendre"
+          label={t('languageLearning.languageLabel')}
           fullWidth
           margin="normal"
           value={language}
@@ -68,17 +67,32 @@ const LanguageLearningForm = () => {
           disabled={loading}
         />
         <TextField
-          label="Niveau actuel (débutant, intermédiaire, avancé)"
+          select
+          label={t('languageLearning.currentLevelLabel')}
           fullWidth
           margin="normal"
           value={currentLevel}
           onChange={e => setCurrentLevel(e.target.value)}
           required
           disabled={loading}
-        />
+        >
+          {Object.keys(
+            t('languageLearning.levels', { returnObjects: true })
+          ).map(level => (
+            <Tooltip
+              key={level}
+              title={t(`languageLearning.levels.${level}.description`)}
+              placement="right"
+            >
+              <MenuItem value={level}>
+                {t(`languageLearning.levels.${level}.label`)} ({level})
+              </MenuItem>
+            </Tooltip>
+          ))}
+        </TextField>
         <TextField
           select
-          label="Méthode d'apprentissage préférée"
+          label={t('languageLearning.learningMethodLabel')}
           fullWidth
           margin="normal"
           value={learningMethod}
@@ -86,13 +100,14 @@ const LanguageLearningForm = () => {
           required
           disabled={loading}
         >
-          <MenuItem value="Immersion">Immersion</MenuItem>
-          <MenuItem value="Grammaire">Grammaire</MenuItem>
-          <MenuItem value="Oral">Oral</MenuItem>
-          <MenuItem value="Autre">Autre</MenuItem>
+          {['immersion', 'grammar', 'oral', 'other'].map(method => (
+            <MenuItem key={method} value={method}>
+              {t(`languageLearning.methods.${method}`)}
+            </MenuItem>
+          ))}
         </TextField>
         <TextField
-          label="Durée d'apprentissage (mois)"
+          label={t('languageLearning.durationLabel')}
           type="number"
           fullWidth
           margin="normal"
@@ -110,7 +125,9 @@ const LanguageLearningForm = () => {
             fullWidth
             disabled={loading}
           >
-            {loading ? 'Chargement...' : 'Soumettre'}
+            {loading
+              ? t('languageLearning.loading')
+              : t('languageLearning.submit')}
           </Button>
         </Box>
       </Box>
@@ -123,7 +140,9 @@ const LanguageLearningForm = () => {
 
       {project && (
         <Box sx={{ mt: 4 }}>
-          <Typography variant="h6">Votre programme personnalisé :</Typography>
+          <Typography variant="h6">
+            {t('languageLearning.projectCreated')}
+          </Typography>
           <Typography variant="body1" sx={{ whiteSpace: 'pre-line' }}>
             {project.course}
           </Typography>

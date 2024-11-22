@@ -1,0 +1,73 @@
+{
+  "navbar": {
+    "createProject": "Project maken",
+    "courses": "Cursussen/Lessen",
+    "calendar": "Kalender",
+    "notifications": "Meldingen",
+    "profile": "Profiel",
+    "logout": "Uitloggen",
+    "login": "Inloggen",
+    "signup": "Aanmelden"
+  },
+      "languageLearning": {
+        "title": "Een Nieuwe Taal Leren",
+        "languageLabel": "Taal om te leren",
+        "currentLevelLabel": "Huidig niveau (A1 tot C2)",
+        "learningMethodLabel": "Voorkeurs leermethode",
+        "durationLabel": "Leerperiode (maanden)",
+        "submit": "Indienen",
+        "loading": "Bezig met laden...",
+        "projectCreated": "Uw gepersonaliseerd programma:",
+        "error": "Er is een fout opgetreden bij het maken van het project.",
+        "levels": {
+          "A1": {
+            "label": "Beginner",
+            "description": "In staat om eenvoudige zinnen te begrijpen en op concrete behoeften te reageren."
+          },
+          "A2": {
+            "label": "Elementair",
+            "description": "In staat om te communiceren over vertrouwde alledaagse onderwerpen."
+          },
+          "B1": {
+            "label": "Gemiddeld",
+            "description": "In staat om algemene onderwerpen te begrijpen en meningen te uiten."
+          },
+          "B2": {
+            "label": "Gevorderd",
+            "description": "In staat om te argumenteren en vloeiend te communiceren."
+          },
+          "C1": {
+            "label": "Zelfstandig",
+            "description": "In staat om complexe teksten te begrijpen en vloeiend te spreken."
+          },
+          "C2": {
+            "label": "Beheersing",
+            "description": "In staat om de taal op een hoog niveau te gebruiken."
+          }
+        },
+        "methods": {
+          "immersion": "Onderdompeling",
+          "grammar": "Grammatica",
+          "oral": "Mondeling",
+          "other": "Ander"
+        }
+      },      
+      "home": {
+        "welcome": "Welkom bij",
+        "subtitle": "Het platform dat leren, productiviteit en welzijn revolutioneert.",
+        "joinUs": "Doe mee",
+        "slider1": "Ontdek nieuwe horizonten",
+        "slider2": "Verhoog je vaardigheden",
+        "slider3": "Sluit je aan bij een gepassioneerde gemeenschap",
+        "searchLabel": "Zoek een project of categorie",
+        "whatIsNanshe": "Wat is Nanshe?",
+        "description": "Een innovatief platform dat verrijkende projecten aanbiedt in verschillende domeinen zoals financiën, gezondheid en persoonlijke ontwikkeling.",
+        "advantage1": "Interactief leren",
+        "advantage1Desc": "Doe mee aan praktische projecten en ontwikkel nieuwe vaardigheden.",
+        "advantage2": "Betrokken gemeenschap",
+        "advantage2Desc": "Verbind met andere enthousiastelingen en maak samen voortgang.",
+        "advantage3": "Persoonlijke doelen",
+        "advantage3Desc": "Werk in je eigen tempo en volg je vooruitgang."
+      }
+         
+}

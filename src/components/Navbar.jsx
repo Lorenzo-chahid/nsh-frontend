@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   AppBar,
   Toolbar,
@@ -7,6 +7,8 @@ import {
   Box,
   Button,
   Badge,
+  Menu,
+  MenuItem,
 } from '@mui/material';
 import {
   Login as LoginIcon,
@@ -17,32 +19,34 @@ import {
   Notifications as NotificationsIcon,
   CalendarToday as CalendarIcon,
   Logout as LogoutIcon,
+  Language as LanguageIcon,
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { getNotifications } from '../services/NotificationService';
+import { useTranslation } from 'react-i18next';
 
 const Navbar = () => {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
+  const { t, i18n } = useTranslation();
   const [unreadCount, setUnreadCount] = useState(0);
+  const [languageMenuAnchor, setLanguageMenuAnchor] = useState(null);
 
   const loadEvents = async () => {
     try {
-      // Appelez votre service pour charger les événements ici
-      console.log('Loading events...'); // Remplacez par votre service
+      console.log('Loading events...');
     } catch (error) {
       console.error('Erreur lors du rechargement des événements :', error);
     }
   };
 
   const handleNotificationsClick = () => {
-    loadEvents(); // Recharge les événements quand les notifications sont cliquées
-    navigate('/notifications'); // Navigue vers la page des notifications
+    loadEvents();
+    navigate('/notifications');
   };
 
-  // Charger les notifications non lues
-  useEffect(() => {
+  React.useEffect(() => {
     const loadNotifications = async () => {
       if (user) {
         try {
@@ -69,13 +73,35 @@ const Navbar = () => {
   const handleProfileClick = () => navigate('/profile');
   const handleCalendarClick = () => navigate('/calendar');
 
+  const changeLanguage = lng => {
+    i18n.changeLanguage(lng);
+    setLanguageMenuAnchor(null);
+  };
+
+  const handleOpenLanguageMenu = event => {
+    setLanguageMenuAnchor(event.currentTarget);
+  };
+
+  const handleCloseLanguageMenu = () => {
+    setLanguageMenuAnchor(null);
+  };
+
+  const languages = [
+    { code: 'en', label: 'English', flag: '🇬🇧' },
+    { code: 'fr', label: 'Français', flag: '🇫🇷' },
+    { code: 'nl', label: 'Nederlands', flag: '🇳🇱' },
+  ];
+
+  const currentLanguage = languages.find(
+    lang => lang.code === i18n.language
+  ) || { label: 'English', flag: '🇬🇧' }; // Fallback pour éviter les erreurs
+
   return (
     <AppBar
       position="static"
       sx={{ backgroundColor: '#4a4e69', color: '#f2e9e4' }}
     >
       <Toolbar>
-        {/* Logo / Titre de l'application */}
         <Typography
           variant="h5"
           component="div"
@@ -90,7 +116,6 @@ const Navbar = () => {
           Nanshe
         </Typography>
 
-        {/* Actions utilisateur */}
         {!user ? (
           <Box>
             <IconButton color="inherit" onClick={handleLogin}>
@@ -102,27 +127,22 @@ const Navbar = () => {
           </Box>
         ) : (
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            {/* Gestion des projets */}
             <Button
               variant="outlined"
               startIcon={<AddIcon />}
               onClick={handleCreateProject}
               sx={{ borderColor: '#f2e9e4', color: '#f2e9e4', mr: 2 }}
             >
-              Créer un projet
+              {t('navbar.createProject')}
             </Button>
-
-            {/* Gestion des cours */}
             <Button
               variant="outlined"
               startIcon={<CourseIcon />}
               onClick={handleViewCourses}
               sx={{ borderColor: '#f2e9e4', color: '#f2e9e4', mr: 2 }}
             >
-              Cours/Leçons
+              {t('navbar.courses')}
             </Button>
-
-            {/* Calendrier */}
             <Button
               variant="outlined"
               startIcon={<CalendarIcon />}
@@ -137,10 +157,8 @@ const Navbar = () => {
                 },
               }}
             >
-              Calendrier
+              {t('navbar.calendar')}
             </Button>
-
-            {/* Notifications */}
             <IconButton
               color="inherit"
               onClick={handleNotificationsClick}
@@ -153,13 +171,9 @@ const Navbar = () => {
                 <NotificationsIcon refreshCalendar={loadEvents} />
               </Badge>
             </IconButton>
-
-            {/* Profil */}
             <IconButton color="inherit" onClick={handleProfileClick}>
               <ProfileIcon />
             </IconButton>
-
-            {/* Déconnexion */}
             <IconButton
               color="inherit"
               onClick={handleLogout}
@@ -169,6 +183,26 @@ const Navbar = () => {
             </IconButton>
           </Box>
         )}
+
+        <Box sx={{ display: 'flex', alignItems: 'center', ml: 2 }}>
+          <Typography variant="body2" sx={{ color: '#f2e9e4', marginRight: 1 }}>
+            {currentLanguage.flag} {currentLanguage.label}
+          </Typography>
+          <IconButton color="inherit" onClick={handleOpenLanguageMenu}>
+            <LanguageIcon />
+          </IconButton>
+        </Box>
+        <Menu
+          anchorEl={languageMenuAnchor}
+          open={Boolean(languageMenuAnchor)}
+          onClose={handleCloseLanguageMenu}
+        >
+          {languages.map(lang => (
+            <MenuItem key={lang.code} onClick={() => changeLanguage(lang.code)}>
+              {lang.flag} {lang.label}
+            </MenuItem>
+          ))}
+        </Menu>
       </Toolbar>
     </AppBar>
   );

@@ -12,7 +12,6 @@ import {
   Snackbar,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Exercise from './Exercise';
 import {
   fetchProjectById,
   subscribeToProject,
@@ -34,6 +33,7 @@ const ProjectDetails = () => {
     try {
       const data = await fetchProjectById(projectId);
       setProject(data);
+      console.log('here :', data);
     } catch (err) {
       console.error('Erreur lors de la récupération du projet:', err);
       setError(true);
@@ -107,88 +107,73 @@ const ProjectDetails = () => {
         {subscribing ? 'Inscription en cours...' : "S'inscrire"}
       </Button>
 
-      {/* Affichage des cours associés au projet */}
+      {/* Affichage des cours, sections et exercices */}
       {project.courses && project.courses.length > 0 && (
-        <>
-          <Typography variant="h5" gutterBottom sx={{ marginTop: 4 }}>
+        <Box sx={{ marginTop: 4 }}>
+          <Typography variant="h5" gutterBottom>
             Cours Associés
           </Typography>
-          <Box>
-            {project.courses
-              .sort((a, b) => (a.order || 0) - (b.order || 0))
-              .map(course => (
-                <Accordion key={course.id}>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls={`course-content-${course.id}`}
-                    id={`course-header-${course.id}`}
-                  >
-                    <Typography variant="h6">{course.title}</Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography variant="body2" color="text.secondary">
-                      {course.description}
+          {project.courses.map(course => (
+            <Accordion key={course.id}>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls={`course-content-${course.id}`}
+                id={`course-header-${course.id}`}
+              >
+                <Typography variant="h6">{course.title}</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography variant="body2" color="textSecondary">
+                  {course.description}
+                </Typography>
+                {course.sections && course.sections.length > 0 && (
+                  <Box sx={{ marginTop: 2 }}>
+                    <Typography variant="subtitle1" gutterBottom>
+                      Sections
                     </Typography>
-                    {/* Sections */}
-                    {course.sections && course.sections.length > 0 && (
-                      <Box sx={{ marginTop: 2 }}>
-                        {course.sections
-                          .sort((a, b) => (a.order || 0) - (b.order || 0))
-                          .map(section => (
-                            <Accordion
-                              key={section.id}
-                              sx={{ marginBottom: 2 }}
-                            >
-                              <AccordionSummary
-                                expandIcon={<ExpandMoreIcon />}
-                                aria-controls={`section-content-${section.id}`}
-                                id={`section-header-${section.id}`}
-                              >
-                                <Typography variant="subtitle1">
-                                  {section.title}
+                    {course.sections.map(section => (
+                      <Accordion key={section.id}>
+                        <AccordionSummary
+                          expandIcon={<ExpandMoreIcon />}
+                          aria-controls={`section-content-${section.id}`}
+                          id={`section-header-${section.id}`}
+                        >
+                          <Typography>{section.title}</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                          <Typography variant="body2">
+                            {section.content}
+                          </Typography>
+                          {section.exercises &&
+                            section.exercises.length > 0 && (
+                              <Box sx={{ marginTop: 2 }}>
+                                <Typography variant="subtitle2">
+                                  Exercices
                                 </Typography>
-                              </AccordionSummary>
-                              <AccordionDetails>
-                                <Typography variant="body2">
-                                  {section.content}
-                                </Typography>
-                                {/* Exercices */}
-                                {section.exercises &&
-                                  section.exercises.length > 0 && (
-                                    <Box sx={{ marginTop: 2 }}>
-                                      <Typography
-                                        variant="subtitle2"
-                                        gutterBottom
-                                      >
-                                        Exercices
-                                      </Typography>
-                                      {section.exercises
-                                        .sort(
-                                          (a, b) =>
-                                            (a.order || 0) - (b.order || 0)
-                                        )
-                                        .map((exercise, index) => (
-                                          <Exercise
-                                            key={exercise.id}
-                                            exercise={exercise}
-                                            index={index}
-                                          />
-                                        ))}
-                                    </Box>
-                                  )}
-                              </AccordionDetails>
-                            </Accordion>
-                          ))}
-                      </Box>
-                    )}
-                  </AccordionDetails>
-                </Accordion>
-              ))}
-          </Box>
-        </>
+                                <ul>
+                                  {section.exercises.map(exercise => (
+                                    <li key={exercise.id}>
+                                      <strong>Question:</strong>{' '}
+                                      {exercise.question}
+                                      <br />
+                                      <strong>Réponse:</strong>{' '}
+                                      {exercise.answer}
+                                    </li>
+                                  ))}
+                                </ul>
+                              </Box>
+                            )}
+                        </AccordionDetails>
+                      </Accordion>
+                    ))}
+                  </Box>
+                )}
+              </AccordionDetails>
+            </Accordion>
+          ))}
+        </Box>
       )}
 
-      {/* Snackbar pour les notifications */}
       <Snackbar
         open={snackbar.open}
         autoHideDuration={6000}

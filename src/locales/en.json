@@ -1,0 +1,72 @@
+{
+  "navbar": {
+    "createProject": "Create Project",
+    "courses": "Courses/Lessons",
+    "calendar": "Calendar",
+    "notifications": "Notifications",
+    "profile": "Profile",
+    "logout": "Logout",
+    "login": "Login",
+    "signup": "Sign Up"
+  },
+  "languageLearning": {
+    "title": "Learning a New Language",
+    "languageLabel": "Language to learn",
+    "currentLevelLabel": "Current level (A1 to C2)",
+    "learningMethodLabel": "Preferred learning method",
+    "durationLabel": "Learning duration (months)",
+    "submit": "Submit",
+    "loading": "Loading...",
+    "projectCreated": "Your personalized program:",
+    "error": "An error occurred while creating the project.",
+    "levels": {
+      "A1": {
+        "label": "Beginner",
+        "description": "Ability to understand simple sentences and respond to concrete needs."
+      },
+      "A2": {
+        "label": "Elementary",
+        "description": "Ability to communicate on familiar everyday topics."
+      },
+      "B1": {
+        "label": "Intermediate",
+        "description": "Ability to understand common topics and express opinions."
+      },
+      "B2": {
+        "label": "Advanced",
+        "description": "Ability to argue and interact fluently."
+      },
+      "C1": {
+        "label": "Proficient",
+        "description": "Ability to understand complex texts and express yourself fluently."
+      },
+      "C2": {
+        "label": "Mastery",
+        "description": "Ability to use the language expertly."
+      }
+    },
+    "methods": {
+      "immersion": "Immersion",
+      "grammar": "Grammar",
+      "oral": "Oral",
+      "other": "Other"
+    }
+  },      
+  "home": {
+  "welcome": "Welcome to",
+  "subtitle": "The platform that revolutionizes learning, productivity, and well-being.",
+  "joinUs": "Join Us",
+  "slider1": "Discover new horizons",
+  "slider2": "Boost your skills",
+  "slider3": "Join a passionate community",
+  "searchLabel": "Search for a project or category",
+  "whatIsNanshe": "What is Nanshe?",
+  "description": "An innovative platform offering enriching projects in various fields such as finance, health, and personal development.",
+  "advantage1": "Interactive Learning",
+  "advantage1Desc": "Participate in practical projects and develop new skills.",
+  "advantage2": "Engaged Community",
+  "advantage2Desc": "Connect with other enthusiasts and progress together.",
+  "advantage3": "Personalized Goals",
+  "advantage3Desc": "Move at your own pace and track your progress."
+}
+}

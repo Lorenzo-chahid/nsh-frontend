@@ -14,17 +14,16 @@ import { Search as SearchIcon } from '@mui/icons-material';
 import { getCategoriesFromInput } from '../categoryService';
 import Carousel from 'react-material-ui-carousel';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 const images = [
-  { url: '/images/slider1.jpg', caption: 'Découvrez de nouveaux horizons' },
-  { url: '/images/slider2.jpg', caption: 'Boostez vos compétences' },
-  {
-    url: '/images/slider3.jpg',
-    caption: 'Rejoignez une communauté passionnée',
-  },
+  { url: '/images/slider1.jpg', captionKey: 'home.slider1' },
+  { url: '/images/slider2.jpg', captionKey: 'home.slider2' },
+  { url: '/images/slider3.jpg', captionKey: 'home.slider3' },
 ];
 
 const Home = () => {
+  const { t } = useTranslation(); // Hook pour la traduction
   const [inputValue, setInputValue] = useState('');
   const [categories, setCategories] = useState([]);
 
@@ -61,14 +60,14 @@ const Home = () => {
           transition={{ duration: 1.5 }}
         >
           <Typography variant="h2" component="h1" gutterBottom>
-            Bienvenue sur <span style={{ color: '#6a5acd' }}>Nanshe</span>
+            {t('home.welcome')}
+            <span style={{ color: '#6a5acd' }}> Nanshe</span>
           </Typography>
           <Typography variant="h5" color="text.secondary" mb={2}>
-            La plateforme qui révolutionne l’apprentissage, la productivité et
-            le bien-être.
+            {t('home.subtitle')}
           </Typography>
           <Button variant="contained" color="primary" size="large">
-            Rejoignez-nous
+            {t('home.joinUs')}
           </Button>
         </Box>
 
@@ -116,7 +115,7 @@ const Home = () => {
                   }}
                 >
                   <Typography variant="h4" component="h2">
-                    {item.caption}
+                    {t(item.captionKey)}
                   </Typography>
                 </Box>
               </Paper>
@@ -128,7 +127,7 @@ const Home = () => {
         <Box mt={5} display="flex" justifyContent="center" alignItems="center">
           <Box width="100%" maxWidth="600px">
             <TextField
-              label="Rechercher un projet ou une catégorie"
+              label={t('home.searchLabel')}
               variant="outlined"
               fullWidth
               value={inputValue}
@@ -177,7 +176,7 @@ const Home = () => {
         {/* Section 4: Description du projet */}
         <Box mt={6} textAlign="center">
           <Typography variant="h4" gutterBottom>
-            Qu'est-ce que Nanshe ?
+            {t('home.whatIsNanshe')}
           </Typography>
           <Typography
             variant="h6"
@@ -185,9 +184,7 @@ const Home = () => {
             maxWidth="sm"
             mx="auto"
           >
-            Une plateforme innovante offrant des projets enrichissants dans
-            divers domaines comme la finance, la santé, et le développement
-            personnel. Rejoignez-nous pour faire partie de la communauté.
+            {t('home.description')}
           </Typography>
         </Box>
 
@@ -199,11 +196,10 @@ const Home = () => {
               sx={{ padding: 4, backgroundColor: '#f8f8f8' }}
             >
               <Typography variant="h6" color="primary.main">
-                Apprentissage interactif
+                {t('home.advantage1')}
               </Typography>
               <Typography variant="body1" color="text.secondary">
-                Participez à des projets pratiques et développez de nouvelles
-                compétences.
+                {t('home.advantage1Desc')}
               </Typography>
             </Paper>
           </Grid>
@@ -213,10 +209,10 @@ const Home = () => {
               sx={{ padding: 4, backgroundColor: '#f8f8f8' }}
             >
               <Typography variant="h6" color="primary.main">
-                Communauté engagée
+                {t('home.advantage2')}
               </Typography>
               <Typography variant="body1" color="text.secondary">
-                Échangez avec d’autres passionnés et progressez ensemble.
+                {t('home.advantage2Desc')}
               </Typography>
             </Paper>
           </Grid>
@@ -226,10 +222,10 @@ const Home = () => {
               sx={{ padding: 4, backgroundColor: '#f8f8f8' }}
             >
               <Typography variant="h6" color="primary.main">
-                Objectifs personnalisés
+                {t('home.advantage3')}
               </Typography>
               <Typography variant="body1" color="text.secondary">
-                Avancez à votre rythme et mesurez votre progression.
+                {t('home.advantage3Desc')}
               </Typography>
             </Paper>
           </Grid>

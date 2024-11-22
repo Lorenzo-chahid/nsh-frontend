@@ -1,0 +1,72 @@
+{
+  "navbar": {
+    "createProject": "Créer un projet",
+    "courses": "Cours/Leçons",
+    "calendar": "Calendrier",
+    "notifications": "Notifications",
+    "profile": "Profil",
+    "logout": "Déconnexion",
+    "login": "Connexion",
+    "signup": "Inscription"
+  },
+    "languageLearning": {
+      "title": "Apprentissage d'une Nouvelle Langue",
+      "languageLabel": "Langue à apprendre",
+      "currentLevelLabel": "Niveau actuel (A1 à C2)",
+      "learningMethodLabel": "Méthode d'apprentissage préférée",
+      "durationLabel": "Durée d'apprentissage (mois)",
+      "submit": "Soumettre",
+      "loading": "Chargement...",
+      "projectCreated": "Votre programme personnalisé :",
+      "error": "Une erreur est survenue lors de la création du projet.",
+      "levels": {
+        "A1": {
+          "label": "Débutant",
+          "description": "Capacité à comprendre des phrases simples et à répondre à des besoins concrets."
+        },
+        "A2": {
+          "label": "Élémentaire",
+          "description": "Capacité à communiquer sur des sujets familiers du quotidien."
+        },
+        "B1": {
+          "label": "Intermédiaire",
+          "description": "Capacité à comprendre des sujets courants et à exprimer son opinion."
+        },
+        "B2": {
+          "label": "Avancé",
+          "description": "Capacité à argumenter et interagir avec fluidité."
+        },
+        "C1": {
+          "label": "Autonome",
+          "description": "Capacité à comprendre des textes complexes et à s’exprimer couramment."
+        },
+        "C2": {
+          "label": "Maîtrise",
+          "description": "Capacité à utiliser la langue de manière experte."
+        }
+      },
+      "methods": {
+        "immersion": "Immersion",
+        "grammar": "Grammaire",
+        "oral": "Oral",
+        "other": "Autre"
+      }
+    },    
+  "home": {
+  "welcome": "Bienvenue sur",
+  "subtitle": "La plateforme qui révolutionne l’apprentissage, la productivité et le bien-être.",
+  "joinUs": "Rejoignez-nous",
+  "slider1": "Découvrez de nouveaux horizons",
+  "slider2": "Boostez vos compétences",
+  "slider3": "Rejoignez une communauté passionnée",
+  "searchLabel": "Rechercher un projet ou une catégorie",
+  "whatIsNanshe": "Qu'est-ce que Nanshe ?",
+  "description": "Une plateforme innovante offrant des projets enrichissants dans divers domaines comme la finance, la santé, et le développement personnel.",
+  "advantage1": "Apprentissage interactif",
+  "advantage1Desc": "Participez à des projets pratiques et développez de nouvelles compétences.",
+  "advantage2": "Communauté engagée",
+  "advantage2Desc": "Échangez avec d’autres passionnés et progressez ensemble.",
+  "advantage3": "Objectifs personnalisés",
+  "advantage3Desc": "Avancez à votre rythme et mesurez votre progression."
+}
+}
