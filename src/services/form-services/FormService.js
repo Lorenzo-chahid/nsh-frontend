@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = '/api'; // Base URL pour les appels API
+const API_BASE_URL = 'https://nsh.onrender.com/api/v1'; // Base URL pour les appels API
 
 const FormService = {
   // Appel API pour le formulaire de perte de poids
