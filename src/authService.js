@@ -4,14 +4,35 @@ import axios from 'axios';
 
 // Crée une instance Axios
 const api = axios.create({
-  baseURL: 'https://nsh.onrender.com/api/v1', // Remplacez par l'URL de votre backend
-  headers: {
-    'Content-Type': 'application/json',
-  },
+  baseURL: 'http://localhost:8000/api/v1', // Remplacez par l'URL de votre backend
+  // Ne définissez pas 'Content-Type' ici, laissez Axios le gérer automatiquement
 });
 
 const TOKEN_STORAGE_KEY = 'access_token';
 const REFRESH_STORAGE_KEY = 'refresh_token';
+
+// Fonctions utilitaires pour la gestion des tokens
+const getTokenStorage = () => {
+  return localStorage.getItem(TOKEN_STORAGE_KEY)
+    ? localStorage
+    : sessionStorage;
+};
+
+const setTokens = (accessToken, refreshToken, rememberMe) => {
+  const storage = rememberMe ? localStorage : sessionStorage;
+  storage.setItem(TOKEN_STORAGE_KEY, accessToken);
+  storage.setItem(REFRESH_STORAGE_KEY, refreshToken);
+};
+
+const getAccessToken = () => {
+  const storage = getTokenStorage();
+  return storage.getItem(TOKEN_STORAGE_KEY);
+};
+
+const getRefreshToken = () => {
+  const storage = getTokenStorage();
+  return storage.getItem(REFRESH_STORAGE_KEY);
+};
 
 // Fonction pour se connecter et récupérer le token JWT
 export const loginUser = async (identifier, password, rememberMe = false) => {
@@ -27,9 +48,7 @@ export const loginUser = async (identifier, password, rememberMe = false) => {
     const { access_token, refresh_token, user } = response.data;
 
     // Sauvegarder les tokens dans le stockage approprié
-    const storage = rememberMe ? localStorage : sessionStorage;
-    storage.setItem(TOKEN_STORAGE_KEY, access_token);
-    storage.setItem(REFRESH_STORAGE_KEY, refresh_token);
+    setTokens(access_token, refresh_token, rememberMe);
 
     console.log('Tokens stockés:', { access_token, refresh_token });
     return { access_token, refresh_token, user };
@@ -44,9 +63,7 @@ export const loginUser = async (identifier, password, rememberMe = false) => {
 
 // Fonction pour vérifier si l'utilisateur est connecté
 export const isAuthenticated = () => {
-  const token =
-    sessionStorage.getItem(TOKEN_STORAGE_KEY) ||
-    localStorage.getItem(TOKEN_STORAGE_KEY);
+  const token = getAccessToken();
   if (!token) {
     return false;
   }
@@ -62,65 +79,50 @@ export const isAuthenticated = () => {
   return true;
 };
 
-// Fonction pour récupérer le token stocké
-export const getAccessToken = () => {
-  return (
-    sessionStorage.getItem(TOKEN_STORAGE_KEY) ||
-    localStorage.getItem(TOKEN_STORAGE_KEY)
-  );
-};
-
 // Fonction pour déconnecter l'utilisateur
 export const logoutUser = () => {
-  sessionStorage.removeItem(TOKEN_STORAGE_KEY);
-  sessionStorage.removeItem(REFRESH_STORAGE_KEY);
   localStorage.removeItem(TOKEN_STORAGE_KEY);
   localStorage.removeItem(REFRESH_STORAGE_KEY);
+  sessionStorage.removeItem(TOKEN_STORAGE_KEY);
+  sessionStorage.removeItem(REFRESH_STORAGE_KEY);
   console.log('User logged out');
 };
 
 // Fonction pour gérer l'inscription utilisateur
-export const signupUser = async (email, username, password) => {
+export const signupUser = async (userData, rememberMe = false) => {
   try {
-    const response = await api.post('/signup', {
-      email,
-      username,
-      password,
-    });
-
+    const response = await api.post('/signup', userData);
     const { access_token, refresh_token, user } = response.data;
 
-    // Stocker les tokens dans localStorage (par défaut)
-    localStorage.setItem(TOKEN_STORAGE_KEY, access_token);
-    localStorage.setItem(REFRESH_STORAGE_KEY, refresh_token);
+    // Stocker les tokens
+    setTokens(access_token, refresh_token, rememberMe);
 
     console.log('Inscription réussie:', { access_token, refresh_token });
 
     return { access_token, refresh_token, user };
   } catch (error) {
-    console.error('Error during signup:', error);
+    console.error(
+      'Erreur lors de l’inscription:',
+      error.response?.data || error.message
+    );
     throw new Error('Échec de l’inscription.');
   }
 };
 
 // Fonction pour rafraîchir le token d'accès
 export const refreshAccessToken = async () => {
-  const refresh_token =
-    sessionStorage.getItem(REFRESH_STORAGE_KEY) ||
-    localStorage.getItem(REFRESH_STORAGE_KEY);
-  if (!refresh_token)
+  const refresh_token = getRefreshToken();
+  if (!refresh_token) {
     throw new Error('Aucun token de rafraîchissement disponible.');
+  }
 
   try {
     const response = await api.post('/refresh-token', { refresh_token });
     const { access_token } = response.data;
 
     // Remplace le token d'accès dans le bon stockage
-    if (localStorage.getItem(REFRESH_STORAGE_KEY)) {
-      localStorage.setItem(TOKEN_STORAGE_KEY, access_token);
-    } else {
-      sessionStorage.setItem(TOKEN_STORAGE_KEY, access_token);
-    }
+    const storage = getTokenStorage();
+    storage.setItem(TOKEN_STORAGE_KEY, access_token);
 
     console.log("Token d'accès rafraîchi:", access_token);
     return access_token;
@@ -193,6 +195,7 @@ export const fetchProjectById = async projectId => {
   }
 };
 
+// Fonction pour récupérer la liste des utilisateurs
 export const fetchUsers = async () => {
   try {
     const response = await api.get('/users', { headers: authHeader() });
@@ -206,6 +209,7 @@ export const fetchUsers = async () => {
   }
 };
 
+// Fonction pour récupérer les événements
 export const fetchEvents = async () => {
   try {
     const response = await api.get('/events', { headers: authHeader() });
@@ -219,6 +223,7 @@ export const fetchEvents = async () => {
   }
 };
 
+// Fonction pour créer un événement
 export const createEvent = async eventData => {
   try {
     const response = await api.post('/events', eventData, {
@@ -231,19 +236,19 @@ export const createEvent = async eventData => {
   }
 };
 
+// Fonction pour supprimer un projet utilisateur
 export const deleteUserProject = async projectId => {
   try {
     const response = await api.delete(`/projects/${projectId}`, {
-      headers: {
-        Authorization: `Bearer ${getAccessToken()}`,
-      },
+      headers: authHeader(),
     });
     return response.data;
   } catch (error) {
-    throw new Error('Failed to delete project');
+    throw new Error('Échec de la suppression du projet');
   }
 };
 
+// Fonction pour connecter un administrateur
 export const loginAdmin = async (username, password) => {
   try {
     const response = await api.post('/login', {
@@ -254,11 +259,12 @@ export const loginAdmin = async (username, password) => {
     localStorage.setItem('admin_token', access_token);
     return { access_token, user };
   } catch (error) {
-    console.error('Admin login failed:', error);
-    throw new Error('Failed to log in');
+    console.error('Échec de la connexion administrateur:', error);
+    throw new Error('Échec de la connexion');
   }
 };
 
+// Fonction pour mettre à jour un utilisateur
 export const updateUser = async (userId, data) => {
   try {
     const response = await api.put(`/users/${userId}`, data, {
@@ -266,10 +272,11 @@ export const updateUser = async (userId, data) => {
     });
     return response.data;
   } catch (error) {
-    throw new Error('Failed to update user');
+    throw new Error('Échec de la mise à jour de l’utilisateur');
   }
 };
 
+// Fonction pour supprimer un utilisateur
 export const deleteUser = async userId => {
   try {
     const response = await api.delete(`/users/${userId}`, {
@@ -277,14 +284,15 @@ export const deleteUser = async userId => {
     });
     return response.data;
   } catch (error) {
-    throw new Error('Failed to delete user');
+    throw new Error('Échec de la suppression de l’utilisateur');
   }
 };
 
+// Fonction pour récupérer les projets de l'utilisateur
 export const fetchUserProjects = async () => {
   try {
     const response = await api.get('/projects/', { headers: authHeader() });
-    console.log('CHIPPOS::: ', response.data);
+    console.log('Projets de l’utilisateur:', response.data);
     return response.data;
   } catch (error) {
     if (error.response?.status === 401) {
@@ -314,6 +322,7 @@ export const fetchEventById = async eventId => {
   }
 };
 
+// Fonction pour mettre à jour un événement
 export const updateEvent = async (eventId, eventData) => {
   try {
     const response = await api.put(`/events/${eventId}`, eventData, {
@@ -351,3 +360,17 @@ export const notifyParticipants = async (participantIds, message) => {
 };
 
 export { api };
+
+// Ajoutez cette fonction pour récupérer les données utilisateur
+export const getUserData = async () => {
+  try {
+    const response = await api.get('/users/me', { headers: authHeader() });
+    return response.data;
+  } catch (error) {
+    console.error(
+      'Erreur lors de la récupération des données utilisateur:',
+      error
+    );
+    throw error;
+  }
+};

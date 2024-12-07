@@ -1,3 +1,5 @@
+// src/App.jsx
+
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
@@ -15,9 +17,8 @@ import PrivateRoute from './components/PrivateRoute';
 import IsometricWorld from './components/IsometricWorld';
 import UserProfile from './components/user/UserProfile';
 import UserCalendar from './components/Calendar';
-
-// Importer CookieBanner
-import CookieBanner from './components/CookieBanner';
+import Payment from './components/Payment';
+import SkillsManager from './components/SkillsManager'; // Importer le composant Payment
 
 // Importer les formulaires dynamiques
 import BusinessForm from './components/forms/business/BusinessForm';
@@ -40,6 +41,7 @@ import TablesView from './components/admin/TablesView';
 import PrivateAdminRoute from './components/admin/PrivateAdminRoute';
 import AdminPanel from './components/admin/AdminPanel';
 import AdminChatView from './components/admin/AdminChatView'; // Nouveau composant si nécessaire
+import SubscriptionPlans from './components/payment/SubscriptionsPlans'; // Import du composant
 
 // Importer le composant ProjectDetails
 import ProjectDetails from './components/ProjectDetails'; // Nouveau composant pour afficher les détails du projet
@@ -49,13 +51,16 @@ const App = () => {
     <Router>
       <AuthProvider>
         <MainContainer>
-          <CookieBanner /> {/* Ajouter la bannière de cookies */}
           <Routes>
             {/* Routes Publiques */}
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignIn />} />
             <Route path="/isometric-world" element={<IsometricWorld />} />
+
+            {/* Route pour le paiement */}
+            <Route path="/payment" element={<Payment />} />
+            <Route path="/subscriptions" element={<SubscriptionPlans />} />
 
             {/* Routes Protégées pour Utilisateurs */}
             <Route
@@ -83,6 +88,14 @@ const App = () => {
               }
             />
             <Route
+              path="/skills/manage"
+              element={
+                <PrivateRoute>
+                  <SkillsManager />
+                </PrivateRoute>
+              }
+            />
+            <Route
               path="/projects/create"
               element={
                 <PrivateRoute>
@@ -98,6 +111,7 @@ const App = () => {
                 </PrivateRoute>
               }
             />
+            {/* Nouvelle Route pour afficher les détails d'un projet */}
             <Route
               path="/projects/:projectId"
               element={
@@ -138,6 +152,89 @@ const App = () => {
                 </PrivateRoute>
               }
             />
+            {/* Routes pour les formulaires dynamiques basés sur catégorie et sous-catégorie */}
+            <Route
+              path="/projects/create/finance/budget"
+              element={
+                <PrivateRoute>
+                  <BudgetForm />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/projects/create/finance/business"
+              element={
+                <PrivateRoute>
+                  <BusinessForm />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/projects/create/health/weight-loss"
+              element={
+                <PrivateRoute>
+                  <WeightLossForm />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/projects/create/health/stress-management"
+              element={
+                <PrivateRoute>
+                  <StressManagement />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/projects/create/education/language-learning"
+              element={
+                <PrivateRoute>
+                  <LanguageLearningForm />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/projects/create/education/skill-acquisition"
+              element={
+                <PrivateRoute>
+                  <SkillAcquisitionForm />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/projects/create/personal/emotional-resilience"
+              element={
+                <PrivateRoute>
+                  <EmotionalResilienceForm />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/projects/create/personal/social-skills"
+              element={
+                <PrivateRoute>
+                  <SocialSkillsForm />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/projects/create/productivity/project-management"
+              element={
+                <PrivateRoute>
+                  <ProjectManagementForm />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/projects/create/productivity/task-management"
+              element={
+                <PrivateRoute>
+                  <TaskManagementForm />
+                </PrivateRoute>
+              }
+            />
+
+            {/* Routes Admin */}
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route
               path="/admin/*"
@@ -147,10 +244,12 @@ const App = () => {
                 </PrivateAdminRoute>
               }
             >
+              {/* Routes imbriquées pour l'AdminPanel */}
               <Route path="dashboard" element={<AdminDashboard />} />
               <Route path="users" element={<UserManagement />} />
               <Route path="tables" element={<TablesView />} />
               <Route path="chat" element={<AdminChatView />} />
+              {/* Ajoutez d'autres routes administratives ici si nécessaire */}
             </Route>
           </Routes>
         </MainContainer>

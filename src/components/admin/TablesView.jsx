@@ -48,7 +48,7 @@ const TablesView = () => {
     const fetchTables = async () => {
       setLoading(true);
       try {
-        const response = await axios.get('/api/v1/admin/tables', {
+        const response = await axios.get('/v1/admin/tables', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('admin_token')}`,
           },

@@ -4,7 +4,7 @@ import axios from 'axios';
 // Détecte l'environnement et configure l'URL de base
 const isProduction = process.env.NODE_ENV === 'production';
 const baseURL = isProduction
-  ? 'https://nsh.onrender.com/api/v1'
+  ? 'http://localhost:8000/api/v1'
   : 'http://localhost:8000/api/v1';
 
 // Crée une instance Axios avec configuration de base

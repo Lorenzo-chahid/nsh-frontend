@@ -2,7 +2,7 @@ import axios from 'axios';
 import { authHeader } from './authService';
 
 const api = axios.create({
-  baseURL: 'https://nsh.onrender.com/api/v1',
+  baseURL: 'http://localhost:8000/api/v1',
   headers: {
     'Content-Type': 'application/json',
   },

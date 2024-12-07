@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+// src/components/Navbar.js
+
+import React, { useState, useEffect } from 'react';
 import {
   AppBar,
   Toolbar,
@@ -9,6 +11,7 @@ import {
   Badge,
   Menu,
   MenuItem,
+  Avatar,
 } from '@mui/material';
 import {
   Login as LoginIcon,
@@ -33,20 +36,7 @@ const Navbar = () => {
   const [unreadCount, setUnreadCount] = useState(0);
   const [languageMenuAnchor, setLanguageMenuAnchor] = useState(null);
 
-  const loadEvents = async () => {
-    try {
-      console.log('Loading events...');
-    } catch (error) {
-      console.error('Erreur lors du rechargement des événements :', error);
-    }
-  };
-
-  const handleNotificationsClick = () => {
-    loadEvents();
-    navigate('/notifications');
-  };
-
-  React.useEffect(() => {
+  useEffect(() => {
     const loadNotifications = async () => {
       if (user) {
         try {
@@ -61,6 +51,10 @@ const Navbar = () => {
 
     loadNotifications();
   }, [user]);
+
+  const handleNotificationsClick = () => {
+    navigate('/notifications');
+  };
 
   const handleLogin = () => navigate('/login');
   const handleSignUp = () => navigate('/signup');
@@ -168,11 +162,19 @@ const Navbar = () => {
                 badgeContent={unreadCount > 9 ? '9+' : unreadCount}
                 color="error"
               >
-                <NotificationsIcon refreshCalendar={loadEvents} />
+                <NotificationsIcon />
               </Badge>
             </IconButton>
             <IconButton color="inherit" onClick={handleProfileClick}>
-              <ProfileIcon />
+              {user.profile_picture ? (
+                <Avatar
+                  src={user.profile_picture}
+                  alt={`${user.username}'s profile`}
+                  sx={{ width: 32, height: 32 }}
+                />
+              ) : (
+                <ProfileIcon />
+              )}
             </IconButton>
             <IconButton
               color="inherit"
