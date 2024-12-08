@@ -4,7 +4,7 @@ import axios from 'axios';
 
 // Crée une instance Axios
 const api = axios.create({
-  baseURL: 'http://localhost:8000/api/v1', // Remplacez par l'URL de votre backend
+  baseURL: 'https://nsh.onrender.com/api/v1', // Remplacez par l'URL de votre backend
   // Ne définissez pas 'Content-Type' ici, laissez Axios le gérer automatiquement
 });
 
