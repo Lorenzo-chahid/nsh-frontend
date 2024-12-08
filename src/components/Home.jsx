@@ -11,78 +11,21 @@ import {
   Button,
   Paper,
   Grid,
-  Card,
-  CardContent,
-  Divider,
 } from '@mui/material';
 import { Search as SearchIcon } from '@mui/icons-material';
 import { getCategoriesFromInput } from '../categoryService';
 import Carousel from 'react-material-ui-carousel';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import StarIcon from '@mui/icons-material/Star';
-import { loadStripe } from '@stripe/stripe-js';
-import { createStripeSession } from '../services/paymentService';
-import AuthModal from './AuthModal';
 import CookieConsentModal from './cookies/CookieConsentModal'; // Import de la nouvelle modal
-import ChatBotAI from './ChatBotAI';
-
-const stripePromise = loadStripe(
-  'pk_test_51QO6NIDc4Et5GayXOqgDcD6UrzuN7cjqX6VoaBmop7BKYYeulgXGOTXfxkzOv27G2JYvamampKocn1GxEsNqToz100JXuXolOF'
-);
+import SubscriptionPlans from './payment/SubscriptionsPlans'; // Import du composant amélioré
+import AuthModal from './AuthModal'; // Import de la modale d'authentification
 
 const images = [
   { url: '/images/slider1.jpg', captionKey: 'home.slider1' },
   { url: '/images/slider2.jpg', captionKey: 'home.slider2' },
   { url: '/images/slider3.jpg', captionKey: 'home.slider3' },
 ];
-
-const plans = [
-  {
-    title: 'Free',
-    price: '0€ / mois',
-    features: [
-      'Inscription à 1 projet public',
-      'Génération de 1 projet privé',
-      'Accès à la communauté',
-      'IA limitée pour discuter',
-    ],
-    buttonLabel: 'Choisir Free',
-    buttonColor: 'primary',
-    isPopular: false,
-    priceId: null,
-  },
-  {
-    title: 'Premium',
-    price: '3,99€ / mois',
-    features: [
-      'Accès illimité aux projets publics',
-      'Création de jusqu’à 9 projets privés par mois',
-      'Accès complet à la communauté',
-      'IA avancée pour accompagner vos projets',
-    ],
-    buttonLabel: 'Choisir Premium',
-    buttonColor: 'success',
-    isPopular: true,
-    priceId: 'price_1QO6NIDc4Et5GayX7kZT1lxt',
-  },
-  {
-    title: 'Founder',
-    price: '10€ / mois',
-    features: [
-      'Tous les avantages de Premium',
-      'Reconnaissance dans la communauté',
-      'Accès à des fonctionnalités exclusives à venir',
-      'Soutien actif au développement de la plateforme',
-    ],
-    buttonLabel: 'Choisir Founder',
-    buttonColor: 'secondary',
-    isPopular: false,
-    priceId: 'price_1QO6NIDc4Et5GayX9Ll0FGME',
-  },
-];
-
-const COOKIE_PREFERENCES_KEY = 'cookie_preferences';
 
 const Home = () => {
   const { t } = useTranslation();
@@ -93,7 +36,7 @@ const Home = () => {
 
   useEffect(() => {
     // Afficher la modale de consentement aux cookies si l'utilisateur n'a pas exprimé ses préférences
-    const storedPrefs = localStorage.getItem(COOKIE_PREFERENCES_KEY);
+    const storedPrefs = localStorage.getItem('cookie_preferences');
     if (!storedPrefs) {
       setCookieModalOpen(true);
     }
@@ -104,25 +47,6 @@ const Home = () => {
     setInputValue(value);
     const matchedCategories = getCategoriesFromInput(value);
     setCategories(matchedCategories);
-  };
-
-  const handlePlanSelection = async priceId => {
-    const token =
-      localStorage.getItem('access_token') ||
-      sessionStorage.getItem('access_token');
-
-    if (!token || token === 'null' || token === 'undefined') {
-      setAuthModalOpen(true);
-      return;
-    }
-
-    const stripe = await stripePromise;
-    try {
-      const { sessionId } = await createStripeSession(priceId);
-      await stripe.redirectToCheckout({ sessionId });
-    } catch (err) {
-      console.error('Erreur lors de la création de la session Stripe:', err);
-    }
   };
 
   const handleAuthenticated = () => {
@@ -191,7 +115,7 @@ const Home = () => {
           </Button>
         </Box>
 
-        {/* Section 2: Carousel */}
+        {/* Section 2: Carousel d'images */}
         <Box
           mt={4}
           component={motion.div}
@@ -359,97 +283,7 @@ const Home = () => {
         </Grid>
 
         {/* Section 6: Abonnements */}
-        <Box sx={{ mt: 10, pb: 6 }}>
-          <Typography
-            variant="h3"
-            align="center"
-            gutterBottom
-            sx={{ fontSize: { xs: '2rem', md: '3rem' } }}
-          >
-            Choisissez votre abonnement
-          </Typography>
-          <Typography
-            variant="h6"
-            align="center"
-            color="text.secondary"
-            gutterBottom
-            sx={{ fontSize: { xs: '1rem', md: '1.25rem' }, mb: 4 }}
-          >
-            Des plans flexibles pour s'adapter à vos besoins
-          </Typography>
-          <Grid container spacing={4} justifyContent="center">
-            {plans.map((plan, index) => (
-              <Grid item xs={12} sm={6} md={4} key={index}>
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.2 }}
-                >
-                  <Card
-                    sx={{
-                      textAlign: 'center',
-                      boxShadow: 4,
-                      borderRadius: 3,
-                      position: 'relative',
-                      overflow: 'visible',
-                    }}
-                  >
-                    {plan.isPopular && (
-                      <Chip
-                        label="Populaire"
-                        color="secondary"
-                        icon={<StarIcon />}
-                        sx={{
-                          position: 'absolute',
-                          top: -10,
-                          right: -10,
-                          boxShadow: 3,
-                        }}
-                      />
-                    )}
-                    <CardContent>
-                      <Typography variant="h4" gutterBottom>
-                        {plan.title}
-                      </Typography>
-                      <Divider sx={{ marginY: 2 }} />
-                      <Typography variant="h5" color="primary" gutterBottom>
-                        {plan.price}
-                      </Typography>
-                      <ul style={{ listStyleType: 'none', padding: 0 }}>
-                        {plan.features.map((feature, idx) => (
-                          <li key={idx}>
-                            <Typography
-                              variant="body1"
-                              gutterBottom
-                              sx={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                              }}
-                            >
-                              • {feature}
-                            </Typography>
-                          </li>
-                        ))}
-                      </ul>
-                      <Button
-                        variant="contained"
-                        color={plan.buttonColor}
-                        sx={{ marginTop: 3, paddingX: 5 }}
-                        onClick={() => handlePlanSelection(plan.priceId)}
-                      >
-                        {plan.buttonLabel}
-                      </Button>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
-        <ChatBotAI />
+        <SubscriptionPlans />
       </Container>
 
       {/* Modale d'authentification */}
