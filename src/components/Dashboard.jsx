@@ -1,12 +1,30 @@
+// src/components/Dashboard.jsx
+
 import React from 'react';
-import { Typography, Grid, Box, Paper } from '@mui/material';
+import {
+  Typography,
+  Grid,
+  Box,
+  Paper,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import CreateProjectForms from './CreateProjectForms';
 import UserProjects from './UserProjects';
 import PublicProjects from './PublicProjects';
 
 const Dashboard = () => {
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
-    <Box sx={{ padding: 4, backgroundColor: '#f9f9f9', minHeight: '100vh' }}>
+    <Box
+      sx={{
+        padding: { xs: 2, sm: 4 },
+        backgroundColor: '#f9f9f9',
+        minHeight: '100vh',
+      }}
+    >
       {/* Section des projets de l'utilisateur */}
       <Typography
         variant="h4"
@@ -15,6 +33,7 @@ const Dashboard = () => {
           fontWeight: 600,
           color: '#333',
           marginBottom: 3,
+          textAlign: isSmallScreen ? 'center' : 'left',
         }}
       >
         Vos Projets
@@ -22,8 +41,8 @@ const Dashboard = () => {
       <Paper
         elevation={3}
         sx={{
-          padding: 3,
-          marginBottom: 4,
+          padding: { xs: 2, sm: 3 },
+          marginBottom: { xs: 3, sm: 4 },
           borderRadius: '16px',
           backgroundColor: '#fff',
         }}
@@ -39,6 +58,7 @@ const Dashboard = () => {
           fontWeight: 600,
           color: '#333',
           marginBottom: 3,
+          textAlign: isSmallScreen ? 'center' : 'left',
         }}
       >
         Projets Publics
@@ -46,8 +66,8 @@ const Dashboard = () => {
       <Paper
         elevation={3}
         sx={{
-          padding: 3,
-          marginBottom: 4,
+          padding: { xs: 2, sm: 3 },
+          marginBottom: { xs: 3, sm: 4 },
           borderRadius: '16px',
           backgroundColor: '#fff',
         }}
@@ -65,6 +85,7 @@ const Dashboard = () => {
           fontWeight: 600,
           color: '#333',
           marginBottom: 3,
+          textAlign: isSmallScreen ? 'center' : 'left',
         }}
       >
         Créez un nouveau projet
@@ -72,7 +93,7 @@ const Dashboard = () => {
       <Paper
         elevation={3}
         sx={{
-          padding: 3,
+          padding: { xs: 2, sm: 3 },
           borderRadius: '16px',
           backgroundColor: '#fff',
         }}
