@@ -54,7 +54,7 @@ const App = () => {
           <Routes>
             {/* Routes Publiques */}
             <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/login" element={<AdminLogin />} />
             <Route path="/signup" element={<SignIn />} />
             <Route path="/isometric-world" element={<IsometricWorld />} />
 
