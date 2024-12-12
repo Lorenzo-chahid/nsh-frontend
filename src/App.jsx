@@ -1,7 +1,7 @@
 // src/App.jsx
 
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
 import CreateProject from './components/CreateProject';
 import ManageProjects from './components/ManageProjects';
@@ -54,7 +54,7 @@ const App = () => {
           <Routes>
             {/* Routes Publiques */}
             <Route path="/" element={<Home />} />
-            <Route path="/login" element={<AdminLogin />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignIn />} />
             <Route path="/isometric-world" element={<IsometricWorld />} />
 
