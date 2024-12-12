@@ -3,7 +3,7 @@
 import axios from 'axios';
 import { authHeader } from '../authService';
 
-const API_URL = 'https://nsh-frontend.onrender.com/api/v1/calendar';
+const API_URL = 'http://localhost:8000/api/v1/calendar';
 
 // Fonction pour récupérer tous les événements
 export const fetchEvents = async () => {

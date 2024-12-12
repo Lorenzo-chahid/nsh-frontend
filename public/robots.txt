@@ -1,3 +1,6 @@
-# https://www.robotstxt.org/robotstxt.html
+# robots.txt pour Nanshe
 User-agent: *
-Disallow:
+Disallow: /admin/  # Empêche les robots d'explorer les pages admin
+Disallow: /api/    # Bloque l'accès aux API
+Allow: /           # Permet tout le reste
+Sitemap: https://ton-site.com/sitemap.xml  # Lien vers ton sitemap (si disponible)

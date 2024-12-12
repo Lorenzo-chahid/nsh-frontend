@@ -1,5 +1,3 @@
-// src/components/Home.jsx
-
 import React, { useState, useEffect } from 'react';
 import {
   Container,
@@ -13,13 +11,14 @@ import {
   Grid,
 } from '@mui/material';
 import { Search as SearchIcon } from '@mui/icons-material';
+import { Helmet } from 'react-helmet'; // Import pour gérer les balises <head>
 import { getCategoriesFromInput } from '../categoryService';
 import Carousel from 'react-material-ui-carousel';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import CookieConsentModal from './cookies/CookieConsentModal'; // Import de la nouvelle modal
-import SubscriptionPlans from './payment/SubscriptionsPlans'; // Import du composant amélioré
-import AuthModal from './AuthModal'; // Import de la modale d'authentification
+import CookieConsentModal from './cookies/CookieConsentModal';
+import SubscriptionPlans from './payment/SubscriptionsPlans';
+import AuthModal from './AuthModal';
 
 const images = [
   { url: '/images/slider1.jpg', captionKey: 'home.slider1' },
@@ -35,7 +34,6 @@ const Home = () => {
   const [cookieModalOpen, setCookieModalOpen] = useState(false);
 
   useEffect(() => {
-    // Afficher la modale de consentement aux cookies si l'utilisateur n'a pas exprimé ses préférences
     const storedPrefs = localStorage.getItem('cookie_preferences');
     if (!storedPrefs) {
       setCookieModalOpen(true);
@@ -59,6 +57,21 @@ const Home = () => {
 
   return (
     <div>
+      {/* Balises Meta et SEO */}
+      <Helmet>
+        <title>Bienvenue sur Nanshe - Réalisez vos projets</title>
+        <meta
+          name="description"
+          content="Nanshe est une plateforme intuitive et gamifiée pour vous aider à apprendre, gérer vos projets, et progresser dans vos compétences."
+        />
+        <meta
+          name="keywords"
+          content="Nanshe, gestion de projets, apprentissage, gamification, compétences"
+        />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://nanshe.com" />
+      </Helmet>
+
       {/* Modal de consentement aux cookies */}
       <CookieConsentModal
         open={cookieModalOpen}
@@ -68,6 +81,7 @@ const Home = () => {
       <Container maxWidth="lg" sx={{ pb: 6 }}>
         {/* Section 1: Header */}
         <Box
+          component="header"
           display="flex"
           flexDirection="column"
           justifyContent="center"
@@ -89,8 +103,7 @@ const Home = () => {
           transition={{ duration: 1.5 }}
         >
           <Typography
-            variant="h3"
-            component="h1"
+            variant="h1"
             gutterBottom
             sx={{ fontSize: { xs: '2rem', md: '3rem' } }}
           >
@@ -98,7 +111,7 @@ const Home = () => {
             <span style={{ color: '#6a5acd' }}> Nanshe</span>
           </Typography>
           <Typography
-            variant="h5"
+            variant="h2"
             color="text.secondary"
             mb={2}
             sx={{ fontSize: { xs: '1rem', md: '1.5rem' } }}
@@ -116,13 +129,7 @@ const Home = () => {
         </Box>
 
         {/* Section 2: Carousel d'images */}
-        <Box
-          mt={4}
-          component={motion.div}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 2 }}
-        >
+        <Box mt={4}>
           <Carousel
             animation="slide"
             navButtonsAlwaysVisible
@@ -157,8 +164,7 @@ const Home = () => {
                   sx={{ backdropFilter: 'blur(2px)', px: 2 }}
                 >
                   <Typography
-                    variant="h4"
-                    component="h2"
+                    variant="h2"
                     sx={{ fontSize: { xs: '1.5rem', md: '2rem' } }}
                   >
                     {t(item.captionKey)}
@@ -173,6 +179,7 @@ const Home = () => {
         <Box mt={5} display="flex" flexDirection="column" alignItems="center">
           <Box width="100%" maxWidth="600px" display="flex" alignItems="center">
             <TextField
+              aria-label="Recherche"
               label={t('home.searchLabel')}
               variant="outlined"
               fullWidth
@@ -183,107 +190,13 @@ const Home = () => {
                 borderRadius: '4px',
                 boxShadow: 3,
                 input: { color: '#333' },
-                '& .MuiOutlinedInput-root': {
-                  '& fieldset': {
-                    borderColor: 'rgba(106, 90, 205, 0.5)',
-                  },
-                  '&:hover fieldset': {
-                    borderColor: 'primary.main',
-                  },
-                },
-                mr: 2,
               }}
             />
-            <IconButton color="primary" sx={{ ml: 1 }}>
+            <IconButton color="primary">
               <SearchIcon />
             </IconButton>
           </Box>
-
-          <Box mt={2} display="flex" justifyContent="center" flexWrap="wrap">
-            {categories.map((category, index) => (
-              <Chip
-                key={index}
-                label={category}
-                sx={{
-                  margin: '4px',
-                  color: '#ffffff',
-                  bgcolor: 'primary.main',
-                  '&:hover': {
-                    bgcolor: 'secondary.main',
-                  },
-                  fontSize: '1rem',
-                  padding: '10px',
-                }}
-              />
-            ))}
-          </Box>
         </Box>
-
-        {/* Section 4: Description */}
-        <Box mt={8} textAlign="center">
-          <Typography
-            variant="h4"
-            gutterBottom
-            sx={{ fontSize: { xs: '1.75rem', md: '2.5rem' }, mb: 3 }}
-          >
-            {t('home.whatIsNanshe')}
-          </Typography>
-          <Typography
-            variant="h6"
-            color="text.secondary"
-            maxWidth="sm"
-            mx="auto"
-            sx={{ fontSize: { xs: '1rem', md: '1.25rem' } }}
-          >
-            {t('home.description')}
-          </Typography>
-        </Box>
-
-        {/* Section 5: Avantages */}
-        <Grid container spacing={4} mt={4} textAlign="center">
-          <Grid item xs={12} sm={6} md={4}>
-            <Paper
-              elevation={3}
-              sx={{ padding: 4, backgroundColor: '#f8f8f8' }}
-            >
-              <Typography variant="h6" color="primary.main" gutterBottom>
-                {t('home.advantage1')}
-              </Typography>
-              <Typography variant="body1" color="text.secondary">
-                {t('home.advantage1Desc')}
-              </Typography>
-            </Paper>
-          </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <Paper
-              elevation={3}
-              sx={{ padding: 4, backgroundColor: '#f8f8f8' }}
-            >
-              <Typography variant="h6" color="primary.main" gutterBottom>
-                {t('home.advantage2')}
-              </Typography>
-              <Typography variant="body1" color="text.secondary">
-                {t('home.advantage2Desc')}
-              </Typography>
-            </Paper>
-          </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <Paper
-              elevation={3}
-              sx={{ padding: 4, backgroundColor: '#f8f8f8' }}
-            >
-              <Typography variant="h6" color="primary.main" gutterBottom>
-                {t('home.advantage3')}
-              </Typography>
-              <Typography variant="body1" color="text.secondary">
-                {t('home.advantage3Desc')}
-              </Typography>
-            </Paper>
-          </Grid>
-        </Grid>
-
-        {/* Section 6: Abonnements */}
-        <SubscriptionPlans />
       </Container>
 
       {/* Modale d'authentification */}
