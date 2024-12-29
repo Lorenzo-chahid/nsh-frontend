@@ -1,20 +1,43 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   Box,
   Container,
   Typography,
-  Button,
+  Grid,
   Fade,
-  Slide,
   useScrollTrigger,
 } from '@mui/material';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import Particles from 'react-tsparticles';
 import { loadFull } from 'tsparticles';
-import explorersImage from '../../expo.png'; // Image pour l'en-tête
+import explorersImage from '../../expo.png';
+import noviceImage from './novice.png';
+import adventurerImage from './adventurer.png';
+import trackerImage from './tracker.png';
+import { Explore, Star, Group } from '@mui/icons-material'; // Icônes de Material-UI
 
-// Animation Slide/Fade déclenchée au scroll
+const classesData = [
+  {
+    id: 'novice',
+    name: 'Novice',
+    description: 'Le point de départ pour tout explorateur. Apprenez les bases et développez votre curiosité.',
+    image: noviceImage,
+  },
+  {
+    id: 'adventurer',
+    name: 'Aventurier',
+    description: 'Un explorateur expérimenté, prêt à relever des défis et découvrir de nouveaux horizons.',
+    image: adventurerImage,
+  },
+  {
+    id: 'tracker',
+    name: 'Pisteur',
+    description: 'Spécialiste en exploration, capable de découvrir des secrets cachés et de guider les autres.',
+    image: trackerImage,
+  },
+];
+
 function ScrollAnimation({ children, window }) {
   const trigger = useScrollTrigger({
     target: window ? window() : undefined,
@@ -22,16 +45,16 @@ function ScrollAnimation({ children, window }) {
   });
 
   return (
-    <Slide in={trigger} direction="up" timeout={800}>
+    <Fade in={trigger} timeout={800}>
       <div>{children}</div>
-    </Slide>
+    </Fade>
   );
 }
 
 const Explorator = () => {
   const { t } = useTranslation();
+  const [activeClass, setActiveClass] = useState(classesData[0]); // Classe active par défaut : Novice
 
-  // Initialisation des particules
   const particlesInit = useCallback(async (engine) => {
     await loadFull(engine);
   }, []);
@@ -61,16 +84,34 @@ const Explorator = () => {
     },
   };
 
+  const explanations = [
+    {
+      title: t('explorator.nansheTitle'),
+      description: t('explorator.nansheDescription'),
+      icon: <Explore fontSize="large" color="primary" />,
+    },
+    {
+      title: t('explorator.clanTitle'),
+      description: t('explorator.clanDescription'),
+      icon: <Group fontSize="large" color="secondary" />,
+    },
+    {
+      title: t('explorator.benefitsTitle'),
+      description: t('explorator.benefitsDescription'),
+      icon: <Star fontSize="large" color="action" />,
+    },
+  ];
+
   return (
     <div>
-      {/* Meta tags pour SEO */}
+      {/* Meta tags */}
       <Helmet>
         <title>{t('explorator.meta.title')}</title>
         <meta name="description" content={t('explorator.meta.description')} />
         <meta name="keywords" content={t('explorator.meta.keywords')} />
       </Helmet>
 
-      {/* Section En-tête avec Particles */}
+      {/* En-tête */}
       <Box
         sx={{
           position: 'relative',
@@ -125,7 +166,7 @@ const Explorator = () => {
           <Fade in timeout={1500}>
             <Box
               sx={{
-                maxWidth: { xs: '90%', md: '60%' },
+                maxWidth: { xs: '95%', md: '70%' },
                 mx: 'auto',
                 backdropFilter: 'blur(2px)',
                 p: { xs: 2, md: 4 },
@@ -136,7 +177,7 @@ const Explorator = () => {
               <Typography
                 variant="h2"
                 sx={{
-                  fontSize: { xs: '2rem', md: '3rem' },
+                  fontSize: { xs: '2rem', md: '3.5rem' },
                   mb: 2,
                   fontWeight: 700,
                   textShadow: '1px 1px 3px rgba(0,0,0,0.6)',
@@ -147,7 +188,7 @@ const Explorator = () => {
               <Typography
                 variant="h5"
                 sx={{
-                  fontSize: { xs: '1rem', md: '1.5rem' },
+                  fontSize: { xs: '1rem', md: '1.8rem' },
                   textShadow: '1px 1px 3px rgba(0,0,0,0.4)',
                 }}
               >
@@ -158,77 +199,122 @@ const Explorator = () => {
         </Box>
       </Box>
 
-      {/* Section principale avec contenus animés */}
-      <Container maxWidth="md" sx={{ mt: 6, mb: 6 }}>
-        <ScrollAnimation>
-          <Box sx={{ mb: 8 }}>
-            <Typography
-              variant="h4"
-              sx={{ mb: 2, fontWeight: 600 }}
-            >
-              {t('explorator.nansheTitle')}
-            </Typography>
-            <Typography
-              variant="body1"
-              sx={{ fontSize: { xs: '1rem', md: '1.25rem' }, lineHeight: 1.8 }}
-            >
-              {t('explorator.nansheDescription')}
-            </Typography>
-          </Box>
-        </ScrollAnimation>
+      {/* Section Explications */}
+      <Container maxWidth="xl" sx={{ mt: 8, mb: 8 }}>
+        {explanations.map((item, index) => (
+          <Grid
+            container
+            spacing={4}
+            key={index}
+            sx={{ mb: 6 }}
+            alignItems="center"
+            justifyContent="center"
+            direction={index % 2 === 0 ? 'row' : 'row-reverse'}
+          >
+            <Grid item xs={12} md={6} textAlign="center">
+              {item.icon}
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Typography
+                variant="h4"
+                sx={{ mb: 2, fontWeight: 600 }}
+              >
+                {item.title}
+              </Typography>
+              <Typography
+                variant="body1"
+                sx={{
+                  fontSize: { xs: '1rem', md: '1.25rem' },
+                  lineHeight: 1.8,
+                }}
+              >
+                {item.description}
+              </Typography>
+            </Grid>
+          </Grid>
+        ))}
+      </Container>
 
+      {/* Section Classes */}
+      <Container maxWidth="xl" sx={{ mt: 8, mb: 8 }}>
         <ScrollAnimation>
-          <Box sx={{ mb: 8 }}>
-            <Typography
-              variant="h4"
-              sx={{ mb: 2, fontWeight: 600 }}
-            >
-              {t('explorator.clanTitle')}
-            </Typography>
-            <Typography
-              variant="body1"
-              sx={{ fontSize: { xs: '1rem', md: '1.25rem' }, lineHeight: 1.8 }}
-            >
-              {t('explorator.clanDescription')}
-            </Typography>
-          </Box>
+          <Typography
+            variant="h4"
+            sx={{ mb: 4, textAlign: 'center', fontWeight: 600 }}
+          >
+            {t('explorator.classesTitle')}
+          </Typography>
         </ScrollAnimation>
+        <Grid container spacing={4} justifyContent="center">
+          {classesData.map((cls) => (
+            <Grid item xs={12} sm={4} key={cls.id}>
+              <Box
+                onClick={() => setActiveClass(cls)}
+                sx={{
+                  cursor: 'pointer',
+                  textAlign: 'center',
+                  p: 2,
+                  borderRadius: 2,
+                  border: cls.id === activeClass.id ? '3px solid #6a5acd' : '3px solid transparent',
+                  transition: 'all 0.3s ease-in-out',
+                  '&:hover': { borderColor: '#6a5acd' },
+                }}
+              >
+                <img
+                  src={cls.image}
+                  alt={cls.name}
+                  style={{
+                    maxWidth: '150px',
+                    height: '150px',
+                    borderRadius: '15px', // Coins arrondis
+                    marginBottom: '1rem',
+                  }}
+                />
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontWeight: 600,
+                    fontSize: { xs: '1rem', md: '1.2rem' },
+                  }}
+                >
+                  {cls.name}
+                </Typography>
+              </Box>
+            </Grid>
+          ))}
+        </Grid>
 
+        {/* Classe active */}
         <ScrollAnimation>
-          <Box sx={{ mb: 8 }}>
+          <Box
+            sx={{
+              mt: 6,
+              p: 4,
+              borderRadius: 2,
+              bgcolor: 'rgba(0, 0, 0, 0.05)',
+              textAlign: 'center',
+              maxWidth: '80%',
+              mx: 'auto',
+            }}
+          >
             <Typography
-              variant="h4"
-              sx={{ mb: 2, fontWeight: 600 }}
-            >
-              {t('explorator.benefitsTitle')}
-            </Typography>
-            <Typography
-              variant="body1"
-              sx={{ fontSize: { xs: '1rem', md: '1.25rem' }, lineHeight: 1.8 }}
-            >
-              {t('explorator.benefitsDescription')}
-            </Typography>
-          </Box>
-        </ScrollAnimation>
-
-        <Fade in timeout={1800}>
-          <Box textAlign="center">
-            <Button
-              variant="contained"
-              color="primary"
-              size="large"
+              variant="h5"
               sx={{
-                fontSize: { xs: '1rem', md: '1.1rem' },
-                textTransform: 'uppercase',
-                fontWeight: 'bold',
-                px: 4,
-                py: 1.5,
+                fontSize: { xs: '1.2rem', md: '1.8rem' },
+                fontWeight: 600,
+                mb: 2,
               }}
             >
-              {t('explorator.joinButton')}
-            </Button>
+              {activeClass.name}
+            </Typography>
+            <Typography
+              variant="body1"
+              sx={{ fontSize: { xs: '1rem', md: '1.25rem' }, lineHeight: 1.8 }}
+            >
+              {activeClass.description}
+            </Typography>
           </Box>
-        </Fade>
+        </ScrollAnimation>
       </Container>
     </div>
   );
