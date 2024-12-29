@@ -1,7 +1,7 @@
 {
   "navbar": {
-    "createProject": "Create Project",
-    "courses": "Courses/Lessons",
+    "createProject": "Create a Project",
+    "courses": "Courses",
     "calendar": "Calendar",
     "notifications": "Notifications",
     "profile": "Profile",
@@ -10,19 +10,19 @@
     "signup": "Sign Up"
   },
   "languageLearning": {
-    "title": "Learning a New Language",
-    "languageLabel": "Language to learn",
-    "currentLevelLabel": "Current level (A1 to C2)",
-    "learningMethodLabel": "Preferred learning method",
-    "durationLabel": "Learning duration (months)",
+    "title": "Learn a New Language",
+    "languageLabel": "Language to Learn",
+    "currentLevelLabel": "Current Level (A1 to C2)",
+    "learningMethodLabel": "Preferred Learning Method",
+    "durationLabel": "Duration of Learning (months)",
     "submit": "Submit",
     "loading": "Loading...",
-    "projectCreated": "Your personalized program:",
+    "projectCreated": "Your Customized Program:",
     "error": "An error occurred while creating the project.",
     "levels": {
       "A1": {
         "label": "Beginner",
-        "description": "Ability to understand simple sentences and respond to concrete needs."
+        "description": "Ability to understand simple phrases and respond to basic needs."
       },
       "A2": {
         "label": "Elementary",
@@ -42,7 +42,7 @@
       },
       "C2": {
         "label": "Mastery",
-        "description": "Ability to use the language expertly."
+        "description": "Ability to use the language at an expert level."
       }
     },
     "methods": {
@@ -51,22 +51,62 @@
       "oral": "Oral",
       "other": "Other"
     }
-  },      
+  },
   "home": {
-  "welcome": "Welcome to",
-  "subtitle": "The platform that revolutionizes learning, productivity, and well-being.",
-  "joinUs": "Join Us",
-  "slider1": "Discover new horizons",
-  "slider2": "Boost your skills",
-  "slider3": "Join a passionate community",
-  "searchLabel": "Search for a project or category",
-  "whatIsNanshe": "What is Nanshe?",
-  "description": "An innovative platform offering enriching projects in various fields such as finance, health, and personal development.",
-  "advantage1": "Interactive Learning",
-  "advantage1Desc": "Participate in practical projects and develop new skills.",
-  "advantage2": "Engaged Community",
-  "advantage2Desc": "Connect with other enthusiasts and progress together.",
-  "advantage3": "Personalized Goals",
-  "advantage3Desc": "Move at your own pace and track your progress."
-}
+    "welcome": "Welcome to",
+    "subtitle": "The platform revolutionizing learning, productivity, and well-being.",
+    "joinUs": "Join Us",
+    "slider1": "Discover new horizons",
+    "slider2": "Boost your skills",
+    "slider3": "Join a passionate community",
+    "searchLabel": "Search for a project or category",
+    "whatIsNanshe": "What is Nanshe?",
+    "description": "An innovative platform offering enriching projects in fields such as finance, health, and personal development.",
+    "advantage1": "Interactive Learning",
+    "advantage1Desc": "Engage in practical projects and develop new skills.",
+    "advantage2": "Engaged Community",
+    "advantage2Desc": "Connect with other enthusiasts and progress together.",
+    "advantage3": "Personalized Goals",
+    "advantage3Desc": "Advance at your own pace and measure your progress."
+  },
+  "clans": {
+    "shadow_agents": {
+      "title": "Shadow Agents",
+      "description": "Explore the platform discreetly without actively participating in the community. Ideal for those who prefer to remain in the background."
+    },
+    "explorers": {
+      "title": "Explorers",
+      "description": "Discover Nanshe's features, learn at your own pace, and freely experiment without the pressure of content creation."
+    },
+    "guardians": {
+      "title": "Guardians",
+      "description": "Contribute to improving existing projects and courses on the platform. Be part of those enriching the global experience."
+    },
+    "innovators": {
+      "title": "Innovators",
+      "description": "Create and launch new projects and ideas. Join those shaping Nanshe's future with their creativity."
+    }
+  },
+  "explorator": {
+    "meta": {
+      "title": "Explorers - Nanshe",
+      "description": "Discover the Explorers clan on Nanshe. Learn, explore, and participate in the platform's collaborative evolution.",
+      "keywords": "explorers, Nanshe, learning, projects, clan"
+    },
+    "title": "Join the Explorers",
+    "subtitle": "Explore Nanshe at your own pace and discover its full potential.",
+    "nansheTitle": "What is Nanshe?",
+    "nansheDescription": "Nanshe is a collaborative and gamified platform designed to help you achieve your goals, learn new skills, and work on exciting projects. It allows you to progress alone or in teams, in a motivating and personalized environment. Whether you want to improve in a field or discover new passions, Nanshe guides you step by step with interactive tools.",
+    "clanTitle": "The Explorers Clan",
+    "clanDescription": "The Explorers clan is for those who love discovering and experimenting. This clan is perfect for users who want to explore the platform's features without pressure. You can focus on your personal goals while discovering the projects, courses, and tools offered by Nanshe. Explorers earn points by testing features, participating in events, and exploring projects created by the community.",
+    "benefitsTitle": "Why Join the Explorers?",
+    "benefitsDescription": "Explorers benefit from privileged access to the platform without the constraint of creation. You can: - Freely explore ongoing projects. - Learn new skills with interactive courses. - Contribute to the platform's evolution by sharing feedback. - Earn points by exploring features and interacting with the community.",
+    "gameTitle": "A Unique Gamified Experience",
+    "gameDescription": "Nanshe turns learning and project management into a game. Every action you take - whether it's discovering a new project, completing a course, or helping other members - earns points for your clan. These points allow your clan to influence Nanshe's evolution by voting for new features or participating in collaborative challenges.",
+    "teamworkTitle": "Collaborate or Work Solo",
+    "teamworkDescription": "With Nanshe, you can choose to work solo on your projects or join a team to collaborate. Explorers have access to community projects as well as tools to create their own learning paths or personal goals. The idea is to give you complete freedom in your progression.",
+    "futureTitle": "Build Nanshe's Future",
+    "futureDescription": "As an Explorer, you play a key role in the platform's evolution. Every point you earn contributes to influencing future updates and features. You actively participate in a collaborative ecosystem where your actions directly impact the community.",
+    "joinButton": "Join the Explorers"
+  }
 }

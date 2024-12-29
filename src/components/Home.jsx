@@ -3,34 +3,74 @@ import {
   Container,
   Box,
   Typography,
-  TextField,
-  IconButton,
-  Chip,
   Button,
-  Paper,
-  Grid,
 } from '@mui/material';
-import { Search as SearchIcon } from '@mui/icons-material';
-import { Helmet } from 'react-helmet'; // Import pour gérer les balises <head>
-import { getCategoriesFromInput } from '../categoryService';
 import Carousel from 'react-material-ui-carousel';
-import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import CookieConsentModal from './cookies/CookieConsentModal';
-import SubscriptionPlans from './payment/SubscriptionsPlans';
 import AuthModal from './AuthModal';
+import explorersImage from './expo.png';
+import guardiansImage from './gardiens.png';
+import innovatorsImage from './inno.png';
+import shadowAgentsImage from './ombre.png';
+import bannerImage from './bann.png';
 
-const images = [
-  { url: '/images/slider1.jpg', captionKey: 'home.slider1' },
-  { url: '/images/slider2.jpg', captionKey: 'home.slider2' },
-  { url: '/images/slider3.jpg', captionKey: 'home.slider3' },
+const clans = [
+  {
+    id: 'explorers',
+    titleKey: 'clans.explorers.title',
+    descriptionKey: 'clans.explorers.description',
+    backgroundImage: explorersImage,
+    buttonTextKey: 'clans.explorers.join',
+    link: '/#/clans/explorators',
+  },
+  {
+    id: 'guardians',
+    titleKey: 'clans.guardians.title',
+    descriptionKey: 'clans.guardians.description',
+    backgroundImage: guardiansImage,
+    buttonTextKey: 'clans.guardians.join',
+    link: '/#/clans/guardians',
+  },
+  {
+    id: 'innovators',
+    titleKey: 'clans.innovators.title',
+    descriptionKey: 'clans.innovators.description',
+    backgroundImage: innovatorsImage,
+    buttonTextKey: 'clans.innovators.join',
+    link: '/#/clans/innovators',
+  },
+  {
+    id: 'shadow_agents',
+    titleKey: 'clans.shadow_agents.title',
+    descriptionKey: 'clans.shadow_agents.description',
+    backgroundImage: shadowAgentsImage,
+    buttonTextKey: 'clans.shadow_agents.join',
+    link: '/#/clans/shadow_agents',
+  },
+];
+
+const carouselItems = [
+  {
+    title: 'Bienvenue sur Nanshe',
+    description: 'Une plateforme collaborative et gamifiée pour réaliser vos projets, apprendre et progresser.',
+    background: bannerImage,
+  },
+  {
+    title: 'Apprenez à votre rythme',
+    description: 'Découvrez des cours et des projets adaptés à vos besoins et objectifs personnels.',
+    background: bannerImage,
+  },
+  {
+    title: 'Rejoignez une communauté',
+    description: 'Collaborez avec d’autres utilisateurs pour atteindre vos objectifs communs.',
+    background: bannerImage,
+  },
 ];
 
 const Home = () => {
   const { t } = useTranslation();
-  const [inputValue, setInputValue] = useState('');
-  const [categories, setCategories] = useState([]);
-  const [authModalOpen, setAuthModalOpen] = useState(false);
   const [cookieModalOpen, setCookieModalOpen] = useState(false);
 
   useEffect(() => {
@@ -40,170 +80,193 @@ const Home = () => {
     }
   }, []);
 
-  const handleInputChange = e => {
-    const value = e.target.value;
-    setInputValue(value);
-    const matchedCategories = getCategoriesFromInput(value);
-    setCategories(matchedCategories);
-  };
-
-  const handleAuthenticated = () => {
-    setAuthModalOpen(false);
-  };
-
   const handleCloseCookieModal = () => {
     setCookieModalOpen(false);
   };
 
   return (
     <div>
-      {/* Balises Meta et SEO */}
       <Helmet>
-        <title>Bienvenue sur Nanshe - Réalisez vos projets</title>
-        <meta
-          name="description"
-          content="Nanshe est une plateforme intuitive et gamifiée pour vous aider à apprendre, gérer vos projets, et progresser dans vos compétences."
-        />
-        <meta
-          name="keywords"
-          content="Nanshe, gestion de projets, apprentissage, gamification, compétences"
-        />
+        <title>{t('home.meta.title')}</title>
+        <meta name="description" content={t('home.meta.description')} />
+        <meta name="keywords" content={t('home.meta.keywords')} />
         <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://nanshe.com" />
+        <link rel="canonical" href="https://nanshe.fr" />
       </Helmet>
 
-      {/* Modal de consentement aux cookies */}
       <CookieConsentModal
         open={cookieModalOpen}
         onClose={handleCloseCookieModal}
       />
 
-      <Container maxWidth="lg" sx={{ pb: 6 }}>
-        {/* Section 1: Header */}
-        <Box
-          component="header"
-          display="flex"
-          flexDirection="column"
-          justifyContent="center"
-          alignItems="center"
-          minHeight="50vh"
-          textAlign="center"
-          bgcolor="background.paper"
+      {/* Header avec carrousel */}
+      <Box
+        sx={{
+          width: '100%',
+          height: '100vh',
+          position: 'relative',
+          overflow: 'hidden',
+        }}
+      >
+        <Carousel
+          indicators={false}
+          autoPlay
+          animation="fade"
+          navButtonsAlwaysVisible
+          interval={5000}
           sx={{
-            color: 'primary.main',
-            py: { xs: 4, md: 8 },
-            px: 2,
-            background: 'linear-gradient(145deg, #2c2c54, #bfbecf)',
-            borderRadius: 4,
-            mt: 4,
+            height: '100%',
+            '& .MuiPaper-root': {
+              height: '100%',
+            },
+            '& .MuiTouchRipple-root': {
+              height: '100%',
+            },
           }}
-          component={motion.div}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.5 }}
+          navButtonsProps={{
+            style: {
+              backgroundColor: 'rgba(0, 0, 0, 0.5)',
+              color: '#fff',
+              borderRadius: '50%',
+              zIndex: 2,
+            },
+          }}
         >
-          <Typography
-            variant="h1"
-            gutterBottom
-            sx={{ fontSize: { xs: '2rem', md: '3rem' } }}
-          >
-            {t('home.welcome')}
-            <span style={{ color: '#6a5acd' }}> Nanshe</span>
-          </Typography>
-          <Typography
-            variant="h2"
-            color="text.secondary"
-            mb={2}
-            sx={{ fontSize: { xs: '1rem', md: '1.5rem' } }}
-          >
-            {t('home.subtitle')}
-          </Typography>
-          <Button
-            variant="contained"
-            color="primary"
-            size="large"
-            sx={{ mt: 2 }}
-          >
-            {t('home.joinUs')}
-          </Button>
-        </Box>
-
-        {/* Section 2: Carousel d'images */}
-        <Box mt={4}>
-          <Carousel
-            animation="slide"
-            navButtonsAlwaysVisible
-            indicators={false}
-            autoPlay
-            interval={5000}
-            sx={{
-              borderRadius: 4,
-              overflow: 'hidden',
-              boxShadow: 3,
-            }}
-          >
-            {images.map((item, index) => (
-              <Paper
-                key={index}
+          {carouselItems.map((item, index) => (
+            <Box
+              key={index}
+              sx={{
+                height: '100%',
+                width: '100%',
+                backgroundImage: `url(${item.background})`,
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                textAlign: 'center',
+                position: 'relative',
+              }}
+            >
+              {/* Ajout d'un filtre sombre */}
+              <Box
+                sx={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                  zIndex: 1,
+                }}
+              />
+              <Box
                 sx={{
                   position: 'relative',
-                  height: { xs: 250, md: 400 },
-                  backgroundImage: `url(${item.url})`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
+                  zIndex: 2, // Devant le filtre
+                  backdropFilter: 'blur(3px)',
+                  padding: { xs: 2, md: 4 },
+                  borderRadius: 2,
+                  color: '#fff',
                 }}
               >
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="center"
-                  color="#ffffff"
-                  height="100%"
-                  bgcolor="rgba(0, 0, 0, 0.4)"
-                  textAlign="center"
-                  sx={{ backdropFilter: 'blur(2px)', px: 2 }}
+                <Typography
+                  variant="h2"
+                  sx={{ fontSize: { xs: '2rem', md: '3rem' }, mb: 2 }}
                 >
-                  <Typography
-                    variant="h2"
-                    sx={{ fontSize: { xs: '1.5rem', md: '2rem' } }}
-                  >
-                    {t(item.captionKey)}
-                  </Typography>
-                </Box>
-              </Paper>
-            ))}
-          </Carousel>
-        </Box>
+                  {item.title}
+                </Typography>
+                <Typography
+                  variant="h5"
+                  sx={{ fontSize: { xs: '1rem', md: '1.5rem' } }}
+                >
+                  {item.description}
+                </Typography>
+              </Box>
+            </Box>
+          ))}
+        </Carousel>
+      </Box>
 
-        {/* Section 3: Recherche */}
-        <Box mt={5} display="flex" flexDirection="column" alignItems="center">
-          <Box width="100%" maxWidth="600px" display="flex" alignItems="center">
-            <TextField
-              aria-label="Recherche"
-              label={t('home.searchLabel')}
-              variant="outlined"
-              fullWidth
-              value={inputValue}
-              onChange={handleInputChange}
+      <Container maxWidth="lg">
+        {clans.map((clan, index) => (
+          <Box
+            key={clan.id}
+            sx={{
+              position: 'relative',
+              height: { xs: '50vh', sm: '75vh', md: '100vh' },
+              backgroundImage: `url(${clan.backgroundImage})`,
+              backgroundAttachment: 'fixed',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '100%',
+              mt: index === 0 ? 0 : 4,
+            }}
+          >
+            <Box
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              textAlign="center"
+              color="#fff"
+              bgcolor="rgba(0, 0, 0, 0.5)"
               sx={{
-                bgcolor: 'white',
-                borderRadius: '4px',
-                boxShadow: 3,
-                input: { color: '#333' },
+                backdropFilter: 'blur(5px)',
+                borderRadius: 4,
+                px: { xs: 2, md: 4 },
+                py: { xs: 3, md: 6 },
+                maxWidth: { xs: '90%', md: '70%' },
               }}
-            />
-            <IconButton color="primary">
-              <SearchIcon />
-            </IconButton>
+            >
+              <Typography
+                variant="h3"
+                sx={{ fontSize: { xs: '1.5rem', md: '3rem' }, mb: 2 }}
+              >
+                {t(clan.titleKey)}
+              </Typography>
+              <Typography
+                variant="body1"
+                sx={{ fontSize: { xs: '1rem', md: '1.25rem' }, mb: 4 }}
+              >
+                {t(clan.descriptionKey)}
+              </Typography>
+              <Button
+                variant="contained"
+                color="primary"
+                size="large"
+                onClick={() => window.location.href = clan.link}
+              >
+                {t(clan.buttonTextKey)}
+              </Button>
+            </Box>
           </Box>
+        ))}
+
+        <Box mt={6} textAlign="center">
+          <Typography
+            variant="h4"
+            sx={{ fontSize: { xs: '1.5rem', md: '2rem' }, mb: 2 }}
+          >
+            {t('home.collaborative.title')}
+          </Typography>
+          <Typography
+            variant="body1"
+            sx={{ fontSize: { xs: '1rem', md: '1.25rem' } }}
+          >
+            {t('home.collaborative.description')}
+          </Typography>
         </Box>
       </Container>
 
-      {/* Modale d'authentification */}
       <AuthModal
-        open={authModalOpen}
-        onClose={() => setAuthModalOpen(false)}
-        onAuthenticated={handleAuthenticated}
+        open={false}
+        onClose={() => {}}
+        onAuthenticated={() => {}}
       />
     </div>
   );

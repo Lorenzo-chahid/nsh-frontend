@@ -1,73 +1,112 @@
 {
   "navbar": {
-    "createProject": "Project maken",
-    "courses": "Cursussen/Lessen",
+    "createProject": "Maak een project",
+    "courses": "Cursussen",
     "calendar": "Kalender",
     "notifications": "Meldingen",
     "profile": "Profiel",
     "logout": "Uitloggen",
     "login": "Inloggen",
-    "signup": "Aanmelden"
+    "signup": "Registreren"
   },
-      "languageLearning": {
-        "title": "Een Nieuwe Taal Leren",
-        "languageLabel": "Taal om te leren",
-        "currentLevelLabel": "Huidig niveau (A1 tot C2)",
-        "learningMethodLabel": "Voorkeurs leermethode",
-        "durationLabel": "Leerperiode (maanden)",
-        "submit": "Indienen",
-        "loading": "Bezig met laden...",
-        "projectCreated": "Uw gepersonaliseerd programma:",
-        "error": "Er is een fout opgetreden bij het maken van het project.",
-        "levels": {
-          "A1": {
-            "label": "Beginner",
-            "description": "In staat om eenvoudige zinnen te begrijpen en op concrete behoeften te reageren."
-          },
-          "A2": {
-            "label": "Elementair",
-            "description": "In staat om te communiceren over vertrouwde alledaagse onderwerpen."
-          },
-          "B1": {
-            "label": "Gemiddeld",
-            "description": "In staat om algemene onderwerpen te begrijpen en meningen te uiten."
-          },
-          "B2": {
-            "label": "Gevorderd",
-            "description": "In staat om te argumenteren en vloeiend te communiceren."
-          },
-          "C1": {
-            "label": "Zelfstandig",
-            "description": "In staat om complexe teksten te begrijpen en vloeiend te spreken."
-          },
-          "C2": {
-            "label": "Beheersing",
-            "description": "In staat om de taal op een hoog niveau te gebruiken."
-          }
-        },
-        "methods": {
-          "immersion": "Onderdompeling",
-          "grammar": "Grammatica",
-          "oral": "Mondeling",
-          "other": "Ander"
-        }
-      },      
-      "home": {
-        "welcome": "Welkom bij",
-        "subtitle": "Het platform dat leren, productiviteit en welzijn revolutioneert.",
-        "joinUs": "Doe mee",
-        "slider1": "Ontdek nieuwe horizonten",
-        "slider2": "Verhoog je vaardigheden",
-        "slider3": "Sluit je aan bij een gepassioneerde gemeenschap",
-        "searchLabel": "Zoek een project of categorie",
-        "whatIsNanshe": "Wat is Nanshe?",
-        "description": "Een innovatief platform dat verrijkende projecten aanbiedt in verschillende domeinen zoals financiën, gezondheid en persoonlijke ontwikkeling.",
-        "advantage1": "Interactief leren",
-        "advantage1Desc": "Doe mee aan praktische projecten en ontwikkel nieuwe vaardigheden.",
-        "advantage2": "Betrokken gemeenschap",
-        "advantage2Desc": "Verbind met andere enthousiastelingen en maak samen voortgang.",
-        "advantage3": "Persoonlijke doelen",
-        "advantage3Desc": "Werk in je eigen tempo en volg je vooruitgang."
+  "languageLearning": {
+    "title": "Een nieuwe taal leren",
+    "languageLabel": "Taal om te leren",
+    "currentLevelLabel": "Huidig niveau (A1 tot C2)",
+    "learningMethodLabel": "Voorkeur leermethode",
+    "durationLabel": "Leertijd (maanden)",
+    "submit": "Verzenden",
+    "loading": "Bezig met laden...",
+    "projectCreated": "Uw aangepaste programma:",
+    "error": "Er is een fout opgetreden bij het maken van het project.",
+    "levels": {
+      "A1": {
+        "label": "Beginner",
+        "description": "In staat om eenvoudige zinnen te begrijpen en op basisbehoeften te reageren."
+      },
+      "A2": {
+        "label": "Elementair",
+        "description": "In staat om te communiceren over alledaagse, vertrouwde onderwerpen."
+      },
+      "B1": {
+        "label": "Gemiddeld",
+        "description": "In staat om algemene onderwerpen te begrijpen en meningen te uiten."
+      },
+      "B2": {
+        "label": "Gevorderd",
+        "description": "In staat om vloeiend te argumenteren en te communiceren."
+      },
+      "C1": {
+        "label": "Autonoom",
+        "description": "In staat om complexe teksten te begrijpen en jezelf vloeiend uit te drukken."
+      },
+      "C2": {
+        "label": "Beheersing",
+        "description": "In staat om de taal op expert niveau te gebruiken."
       }
-         
+    },
+    "methods": {
+      "immersion": "Onderdompeling",
+      "grammar": "Grammatica",
+      "oral": "Mondeling",
+      "other": "Anders"
+    }
+  },
+  "home": {
+    "welcome": "Welkom bij",
+    "subtitle": "Het platform dat leren, productiviteit en welzijn revolutioneert.",
+    "joinUs": "Doe met ons mee",
+    "slider1": "Ontdek nieuwe horizonten",
+    "slider2": "Verbeter je vaardigheden",
+    "slider3": "Word lid van een gepassioneerde gemeenschap",
+    "searchLabel": "Zoek een project of categorie",
+    "whatIsNanshe": "Wat is Nanshe?",
+    "description": "Een innovatief platform dat verrijkende projecten biedt op gebieden zoals financiën, gezondheid en persoonlijke ontwikkeling.",
+    "advantage1": "Interactief leren",
+    "advantage1Desc": "Doe mee aan praktische projecten en ontwikkel nieuwe vaardigheden.",
+    "advantage2": "Betrokken gemeenschap",
+    "advantage2Desc": "Maak contact met andere enthousiastelingen en groei samen.",
+    "advantage3": "Persoonlijke doelen",
+    "advantage3Desc": "Ga in je eigen tempo vooruit en meet je vooruitgang."
+  },
+  "clans": {
+    "shadow_agents": {
+      "title": "Schaduwagenten",
+      "description": "Verken het platform discreet zonder actief deel te nemen aan de gemeenschap. Ideaal voor degenen die liever op de achtergrond blijven."
+    },
+    "explorers": {
+      "title": "Verkenners",
+      "description": "Ontdek de functies van Nanshe, leer in je eigen tempo en experimenteer vrij zonder druk om inhoud te maken."
+    },
+    "guardians": {
+      "title": "Bewakers",
+      "description": "Draag bij aan het verbeteren van bestaande projecten en cursussen op het platform. Maak deel uit van degenen die de algehele ervaring verrijken."
+    },
+    "innovators": {
+      "title": "Innovators",
+      "description": "Creëer en lanceer nieuwe projecten en ideeën. Doe mee met degenen die de toekomst van Nanshe vormgeven met hun creativiteit."
+    }
+  },
+  "explorator": {
+    "meta": {
+      "title": "Verkenners - Nanshe",
+      "description": "Ontdek de Verkenners clan op Nanshe. Leer, verken en neem deel aan de collaboratieve evolutie van het platform.",
+      "keywords": "verkenners, Nanshe, leren, projecten, clan"
+    },
+    "title": "Doe mee met de Verkenners",
+    "subtitle": "Verken Nanshe in je eigen tempo en ontdek het volledige potentieel.",
+    "nansheTitle": "Wat is Nanshe?",
+    "nansheDescription": "Nanshe is een collaboratief en gamified platform ontworpen om je te helpen je doelen te bereiken, nieuwe vaardigheden te leren en te werken aan spannende projecten. Het stelt je in staat om alleen of in teams te groeien in een motiverende en gepersonaliseerde omgeving. Of je nu beter wilt worden in een bepaald gebied of nieuwe passies wilt ontdekken, Nanshe begeleidt je stap voor stap met interactieve tools.",
+    "clanTitle": "De Verkenners Clan",
+    "clanDescription": "De Verkenners clan is voor degenen die graag ontdekken en experimenteren. Deze clan is perfect voor gebruikers die de functies van het platform willen verkennen zonder druk. Je kunt je concentreren op je persoonlijke doelen terwijl je de projecten, cursussen en tools van Nanshe ontdekt. Verkenners verdienen punten door functies te testen, deel te nemen aan evenementen en projecten te verkennen die door de gemeenschap zijn gecreëerd.",
+    "benefitsTitle": "Waarom lid worden van de Verkenners?",
+    "benefitsDescription": "Verkenners profiteren van bevoorrechte toegang tot het platform zonder de druk van creatie. Je kunt: - Vrij lopende projecten verkennen. - Nieuwe vaardigheden leren met interactieve cursussen. - Bijdragen aan de evolutie van het platform door feedback te geven - Punten verdienen door functies te verkennen en te communiceren met de gemeenschap.",
+    "gameTitle": "Een unieke gamified ervaring",
+    "gameDescription": "Nanshe verandert leren en projectbeheer in een spel. Elke actie die je onderneemt - of het nu gaat om een nieuw project te ontdekken, een cursus te voltooien of andere leden te helpen - levert punten op voor je clan. Deze punten stellen je clan in staat om invloed uit te oefenen op de evolutie van Nanshe door te stemmen voor nieuwe functies of deel te nemen aan collaboratieve uitdagingen.",
+    "teamworkTitle": "Samenwerken of alleen werken",
+    "teamworkDescription": "Met Nanshe kun je ervoor kiezen om alleen aan je projecten te werken of een team te vormen om samen te werken. Verkenners hebben toegang tot gemeenschapsprojecten en tools om hun eigen leertrajecten of persoonlijke doelen te creëren. Het idee is om je volledige vrijheid te geven in je vooruitgang.",
+    "futureTitle": "Bouw de toekomst van Nanshe",
+    "futureDescription": "Als Verkenner speel je een sleutelrol in de evolutie van het platform. Elk punt dat je verdient, draagt bij aan het beïnvloeden van toekomstige updates en functies. Je neemt actief deel aan een collaboratief ecosysteem waar je acties directe impact hebben op de gemeenschap.",
+    "joinButton": "Doe mee met de Verkenners"
+  }
 }

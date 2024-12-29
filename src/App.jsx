@@ -32,6 +32,12 @@ import SocialSkillsForm from './components/forms/personal/SocialSkillsForm';
 import ProjectManagementForm from './components/forms/productivity/ProjectManagementForm';
 import TaskManagementForm from './components/forms/productivity/TaskManagementForm';
 import NotificationsPage from './components/NotificationsPage'; // Importer le nouveau composant
+import Explorator from './components/clans/explorator/Explorator'; // Import du composant
+import Guardians from './components/clans/guardians/Guardians';
+import Innovators from './components/clans/innovators/Innovators';
+
+
+
 
 // Importer les composants Admin
 import AdminLogin from './components/admin/AdminLogin';
@@ -43,7 +49,7 @@ import AdminPanel from './components/admin/AdminPanel';
 import AdminChatView from './components/admin/AdminChatView'; // Nouveau composant si nécessaire
 import SubscriptionPlans from './components/payment/SubscriptionsPlans'; // Import du composant
 
-// Importer le composant ProjectDetails
+// Importer le composant ProjectDetailsgs
 import ProjectDetails from './components/ProjectDetails'; // Nouveau composant pour afficher les détails du projet
 
 const App = () => {
@@ -58,9 +64,18 @@ const App = () => {
             <Route path="/signup" element={<SignIn />} />
             <Route path="/isometric-world" element={<IsometricWorld />} />
 
+            {/* Ajout de la route pour les Explorateurs */}
+            <Route path="/clans/explorators" element={<Explorator />} />
+            <Route path="/clans/guardians" element={<Guardians />} />
+            <Route path="/clans/innovators" element={<Innovators />} />
+            
+            {/* Autres routes */}
+
+
             {/* Route pour le paiement */}
             <Route path="/payment" element={<Payment />} />
             <Route path="/subscriptions" element={<SubscriptionPlans />} />
+
 
             {/* Routes Protégées pour Utilisateurs */}
             <Route
