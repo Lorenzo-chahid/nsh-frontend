@@ -4,6 +4,7 @@ import {
   Box,
   Typography,
   Button,
+  useMediaQuery,
 } from '@mui/material';
 import Carousel from 'react-material-ui-carousel';
 import { Helmet } from 'react-helmet';
@@ -47,7 +48,7 @@ const clans = [
     descriptionKey: 'clans.shadow_agents.description',
     backgroundImage: shadowAgentsImage,
     buttonTextKey: 'clans.shadow_agents.join',
-    link: '/#/clans/shadow_agents',
+    link: '/#/clans/shadow-agents',
   },
 ];
 
@@ -72,6 +73,7 @@ const carouselItems = [
 const Home = () => {
   const { t } = useTranslation();
   const [cookieModalOpen, setCookieModalOpen] = useState(false);
+  const isMobile = useMediaQuery('(max-width: 600px)');
 
   useEffect(() => {
     const storedPrefs = localStorage.getItem('cookie_preferences');
@@ -103,7 +105,7 @@ const Home = () => {
       <Box
         sx={{
           width: '100%',
-          height: '100vh',
+          height: { xs: '70vh', sm: '140vh', md: '120vh' },
           position: 'relative',
           overflow: 'hidden',
         }}
@@ -117,18 +119,10 @@ const Home = () => {
           sx={{
             height: '100%',
             '& .MuiPaper-root': {
-              height: '100%',
+              height: '100%', // Assure que chaque slide occupe toute la hauteur
             },
             '& .MuiTouchRipple-root': {
-              height: '100%',
-            },
-          }}
-          navButtonsProps={{
-            style: {
-              backgroundColor: 'rgba(0, 0, 0, 0.5)',
-              color: '#fff',
-              borderRadius: '50%',
-              zIndex: 2,
+              height: '100%', // Ajuste les interactions sur toute la hauteur
             },
           }}
         >
@@ -146,45 +140,22 @@ const Home = () => {
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'center',
+                color: '#fff',
                 textAlign: 'center',
-                position: 'relative',
               }}
             >
-              {/* Ajout d'un filtre sombre */}
-              <Box
-                sx={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '100%',
-                  backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                  zIndex: 1,
-                }}
-              />
-              <Box
-                sx={{
-                  position: 'relative',
-                  zIndex: 2, // Devant le filtre
-                  backdropFilter: 'blur(3px)',
-                  padding: { xs: 2, md: 4 },
-                  borderRadius: 2,
-                  color: '#fff',
-                }}
+              <Typography
+                variant="h2"
+                sx={{ fontSize: { xs: '2rem', md: '3rem' }, mb: 2 }}
               >
-                <Typography
-                  variant="h2"
-                  sx={{ fontSize: { xs: '2rem', md: '3rem' }, mb: 2 }}
-                >
-                  {item.title}
-                </Typography>
-                <Typography
-                  variant="h5"
-                  sx={{ fontSize: { xs: '1rem', md: '1.5rem' } }}
-                >
-                  {item.description}
-                </Typography>
-              </Box>
+                {item.title}
+              </Typography>
+              <Typography
+                variant="h5"
+                sx={{ fontSize: { xs: '1rem', md: '1.5rem' } }}
+              >
+                {item.description}
+              </Typography>
             </Box>
           ))}
         </Carousel>
@@ -197,15 +168,16 @@ const Home = () => {
             sx={{
               position: 'relative',
               height: { xs: '50vh', sm: '75vh', md: '100vh' },
-              backgroundImage: `url(${clan.backgroundImage})`,
-              backgroundAttachment: 'fixed',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
+              width: '100%',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              width: '100%',
               mt: index === 0 ? 0 : 4,
+              overflow: 'hidden',
+              backgroundAttachment: isMobile ? 'scroll' : 'fixed', // Parallaxe sur desktop, scroll sur mobile
+              backgroundImage: `url(${clan.backgroundImage})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
             }}
           >
             <Box
